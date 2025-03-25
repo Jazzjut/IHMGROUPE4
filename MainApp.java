@@ -17,7 +17,7 @@ public class MainApp extends Application {
             }
         Parent root = FXMLLoader.load(fxmlurl);
         Scene scene = new Scene(root);
-        stage.setTitle("Gestion des Étudiants");
+        stage.setTitle("Gestion des Étudiants coucou les copinouuuus");
         stage.setScene(scene);
         stage.show();
         
