@@ -1,14 +1,13 @@
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
-
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-import javafx.scene.control.cell.PropertyValueFactory;
-
 
 public class EtudiantController implements Initializable {
 
@@ -19,62 +18,53 @@ public class EtudiantController implements Initializable {
     @FXML private ComboBox<Etudiant.Promotion> promotionCombo;
     @FXML private Button enregistrerButton;
     @FXML private Button annulerButton;
-    
-    // table étudiants 
+
+    // TableView
     @FXML private TableView<Etudiant> tableView;
     @FXML private TableColumn<Etudiant, Integer> idTC;
     @FXML private TableColumn<Etudiant, String> nomTC;
     @FXML private TableColumn<Etudiant, String> prenomTC;
     @FXML private TableColumn<Etudiant, String> ddnTC;
-    @FXML private TableColumn<Etudiant, String> parcoursTC;
-    @FXML private TableColumn<Etudiant, String> promotionTC;
+    @FXML private TableColumn<Etudiant, Etudiant.Parcours> parcoursTC;
+    @FXML private TableColumn<Etudiant, Etudiant.Promotion> promotionTC;
 
-    // Étudiant courant (null si ajout, non null si modification)
     private Etudiant etudiantCourant;
     private EtudiantDAO etudiantDAO = new EtudiantDAO();
-        
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Initialiser les ComboBox avec les valeurs de l'enum
+        // Initialisation des ComboBox avec les enums
         parcoursCombo.getItems().setAll(Etudiant.Parcours.values());
         promotionCombo.getItems().setAll(Etudiant.Promotion.values());
-        
-        //table de l'étudiants 
+
+        // Configuration du tableau
         idTC.setCellValueFactory(new PropertyValueFactory<>("id"));
         nomTC.setCellValueFactory(new PropertyValueFactory<>("nom"));
         prenomTC.setCellValueFactory(new PropertyValueFactory<>("prenom"));
         ddnTC.setCellValueFactory(new PropertyValueFactory<>("dateDeNaissance"));
         parcoursTC.setCellValueFactory(new PropertyValueFactory<>("parcours"));
         promotionTC.setCellValueFactory(new PropertyValueFactory<>("promotion"));
-        
-        //chargement de la table 
+
+        // Chargement des données
         tableView.getItems().addAll(etudiantDAO.getAllEtudiants());
         System.out.println("Table chargée avec " + tableView.getItems().size() + " étudiants.");
     }
-    
-    /**
-     * Méthode déclenchée lorsqu'on clique sur le bouton "Enregistrer".
-     * Elle récupère les données du formulaire, les valide,
-     * puis crée un nouvel étudiant ou modifie l'étudiant existant.
-     */
+
     @FXML
     public void handleEnregistrer(ActionEvent event) {
-        // Récupération des valeurs du formulaire
         String nom = nomField.getText();
         String prenom = prenomField.getText();
         LocalDate dateNaissance = dateNaissancePicker.getValue();
         Etudiant.Parcours parcours = parcoursCombo.getValue();
         Etudiant.Promotion promotion = promotionCombo.getValue();
 
-        // Validation simple
         if (nom.isEmpty() || prenom.isEmpty() || dateNaissance == null || parcours == null || promotion == null) {
             showAlert("Erreur", "Veuillez remplir tous les champs.");
             return;
         }
 
-        // Création ou mise à jour d'un étudiant
         if (etudiantCourant == null) {
-            // Ajout (id non défini)
+            // Création
             Etudiant nouvelEtudiant = new Etudiant(nom, prenom, dateNaissance.toString(), parcours, promotion);
             etudiantDAO.ajouterEtudiant(nouvelEtudiant);
         } else {
@@ -88,6 +78,8 @@ public class EtudiantController implements Initializable {
         }
 
         viderFormulaire();
+        tableView.setItems(FXCollections.observableArrayList(etudiantDAO.getAllEtudiants()));
+ // rafraîchit la table
     }
 
     @FXML
