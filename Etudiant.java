@@ -9,11 +9,36 @@ public class Etudiant
 {
     // Enumérations pour le parcours et la promotion
     public enum Parcours {
-        ECMPS, GCELL, GPHY
+    ECMPS("ECMPS"),
+    GCELL("GCell"),
+    GPHY("GPhy");
+
+    private final String label;
+
+    Parcours(String label) {
+        this.label = label;
     }
 
+    @Override
+    public String toString() {
+        return label;
+    }
+}   
+
     public enum Promotion {
-        M1, M2
+    M1("Master 1"),
+    M2("Master 2");
+
+    private final String label;
+
+    Promotion(String label) {
+        this.label = label;
+    }
+
+    @Override
+    public String toString() {
+        return label;
+    }
     }
 
     // Attributs privés
