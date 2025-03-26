@@ -17,6 +17,7 @@ public class Etudiant
     }
 
     // Attributs privés
+    private int id;
     private String nom;
     private String prenom;
     private String dateDeNaissance;
@@ -36,14 +37,19 @@ public class Etudiant
     // Constructeur avec paramètres
     public Etudiant(String nom, String prenom, String dateDeNaissance, Parcours parcours, Promotion promotion)
     {
+        this.id = id; 
         this.nom = nom;
         this.prenom = prenom;
         this.dateDeNaissance = dateDeNaissance;
         this.parcours = parcours;
         this.promotion = promotion;
     }
-
+    
     // Getters
+    public int getId(){
+        return id;
+    }
+    
     public String getNom() {
         return nom;
     }
@@ -65,6 +71,10 @@ public class Etudiant
     }
 
     // Setters
+    public void setId (int id){
+        this.id = id; 
+    }
+    
     public void setNom(String nom) {
         this.nom = nom;
     }
