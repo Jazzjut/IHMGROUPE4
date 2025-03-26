@@ -34,6 +34,8 @@ public class EtudiantController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Initialisation des ComboBox avec les enums
+          System.out.println("parcoursCombo = " + parcoursCombo);
+    System.out.println("promotionCombo = " + promotionCombo);
         parcoursCombo.getItems().setAll(Etudiant.Parcours.values());
         promotionCombo.getItems().setAll(Etudiant.Promotion.values());
 

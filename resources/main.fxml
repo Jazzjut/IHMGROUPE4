@@ -127,9 +127,9 @@
                   <Label layoutX="11.0" layoutY="350.0" prefHeight="18.0" prefWidth="100.0" text="Date de Naissance" />
                   <DatePicker layoutX="113.0" layoutY="346.0" prefHeight="25.0" prefWidth="146.0" />
                   <Label layoutX="31.0" layoutY="405.0" text="Parcours" />
-                  <ComboBox fx:id="comboParcours" layoutX="111.0" layoutY="400.0" prefHeight="27.0" prefWidth="146.0" />
+                  <ComboBox fx:id="parcoursCombo" layoutX="111.0" layoutY="400.0" prefHeight="27.0" prefWidth="146.0" />
                   <Label layoutX="32.0" layoutY="471.0" text="Promotion" />
-                  <ComboBox fx:id="comboPromotion" layoutX="113.0" layoutY="466.0" prefHeight="27.0" prefWidth="146.0" />
+                  <ComboBox fx:id="promotionCombo" layoutX="113.0" layoutY="466.0" prefHeight="27.0" prefWidth="146.0" />
                   <Button fx:id="btnEnregistrer" layoutX="170.0" layoutY="575.0" mnemonicParsing="false" text="Enregistrer" />
                   <Button fx:id="btnAnnuler" layoutX="60.0" layoutY="575.0" mnemonicParsing="false" text="Annuler" />
                </children>
