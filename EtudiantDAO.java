@@ -48,6 +48,7 @@ public class EtudiantDAO {
             System.out.println("Étudiant ajouté avec succès.");
         } catch (SQLException ex) {
             ex.printStackTrace();
+            System.out.println("ERREUR : Étudiant pas ajouté.");
         }
     }
 
@@ -68,6 +69,7 @@ public class EtudiantDAO {
             System.out.println("Étudiant modifié avec succès.");
         } catch (SQLException ex) {
             ex.printStackTrace();
+            System.out.println("ERREUR : Étudiant pas modifié.");
         }
     }
 
@@ -84,6 +86,7 @@ public class EtudiantDAO {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
+            System.out.println("ERREUR : Étudiant pas supprimé.");
         }
     }
 }

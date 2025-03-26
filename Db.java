@@ -13,6 +13,7 @@ public class Db {
             }
         }catch (SQLException e) {
              e.printStackTrace();
+            System.out.println("Not connected to database");
         }
         return connection;
     }

@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import javafx.scene.control.cell.PropertyValueFactory;
+
 
 public class EtudiantController implements Initializable {
 
@@ -17,6 +19,15 @@ public class EtudiantController implements Initializable {
     @FXML private ComboBox<Etudiant.Promotion> promotionCombo;
     @FXML private Button enregistrerButton;
     @FXML private Button annulerButton;
+    
+    // table étudiants 
+    @FXML private TableView<Etudiant> tableView;
+    @FXML private TableColumn<Etudiant, Integer> idTC;
+    @FXML private TableColumn<Etudiant, String> nomTC;
+    @FXML private TableColumn<Etudiant, String> prenomTC;
+    @FXML private TableColumn<Etudiant, String> ddnTC;
+    @FXML private TableColumn<Etudiant, String> parcoursTC;
+    @FXML private TableColumn<Etudiant, String> promotionTC;
 
     // Étudiant courant (null si ajout, non null si modification)
     private Etudiant etudiantCourant;
@@ -27,6 +38,18 @@ public class EtudiantController implements Initializable {
         // Initialiser les ComboBox avec les valeurs de l'enum
         parcoursCombo.getItems().setAll(Etudiant.Parcours.values());
         promotionCombo.getItems().setAll(Etudiant.Promotion.values());
+        
+        //table de l'étudiants 
+        idTC.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nomTC.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        prenomTC.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+        ddnTC.setCellValueFactory(new PropertyValueFactory<>("dateDeNaissance"));
+        parcoursTC.setCellValueFactory(new PropertyValueFactory<>("parcours"));
+        promotionTC.setCellValueFactory(new PropertyValueFactory<>("promotion"));
+        
+        //chargement de la table 
+        tableView.getItems().addAll(etudiantDAO.getAllEtudiants());
+        System.out.println("Table chargée avec " + tableView.getItems().size() + " étudiants.");
     }
     
     /**
