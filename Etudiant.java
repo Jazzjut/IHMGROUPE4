@@ -27,6 +27,7 @@ public class Etudiant
     // Constructeur sans paramètres
     public Etudiant()
     {
+        this.id = 0;
         this.nom = "";
         this.prenom = "";
         this.dateDeNaissance = "";
@@ -34,10 +35,20 @@ public class Etudiant
         this.promotion = Promotion.M1;
     }
 
-    // Constructeur avec paramètres
+    // Constructeur avec paramètres pour ajout sans id
     public Etudiant(String nom, String prenom, String dateDeNaissance, Parcours parcours, Promotion promotion)
     {
-        this.id = id; 
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateDeNaissance = dateDeNaissance;
+        this.parcours = parcours;
+        this.promotion = promotion;
+    }
+    
+    // Constructeur avec paramètres pour lecture/modif:suppression
+    public Etudiant(int id, String nom, String prenom, String dateDeNaissance, Parcours parcours, Promotion promotion)
+    {
+        this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.dateDeNaissance = dateDeNaissance;

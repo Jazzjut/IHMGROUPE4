@@ -20,7 +20,8 @@ public class EtudiantController implements Initializable {
 
     // Étudiant courant (null si ajout, non null si modification)
     private Etudiant etudiantCourant;
-
+    private EtudiantDAO etudiantDAO = new EtudiantDAO();
+        
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Initialiser les ComboBox avec les valeurs de l'enum
@@ -52,7 +53,7 @@ public class EtudiantController implements Initializable {
         if (etudiantCourant == null) {
             // Ajout (id non défini)
             Etudiant nouvelEtudiant = new Etudiant(nom, prenom, dateNaissance.toString(), parcours, promotion);
-            // Tu pourras ensuite appeler EtudiantDAO.insert(nouvelEtudiant)
+            etudiantDAO.ajouterEtudiant(nouvelEtudiant);
         } else {
             // Modification
             etudiantCourant.setNom(nom);
@@ -60,7 +61,7 @@ public class EtudiantController implements Initializable {
             etudiantCourant.setDateDeNaissance(dateNaissance.toString());
             etudiantCourant.setParcours(parcours);
             etudiantCourant.setPromotion(promotion);
-            // Tu pourras ensuite appeler EtudiantDAO.update(etudiantCourant)
+            etudiantDAO.modifierEtudiant(etudiantCourant);
         }
 
         viderFormulaire();

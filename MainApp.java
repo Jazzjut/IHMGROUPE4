@@ -8,6 +8,7 @@ import java.sql.Connection;
 
 public class MainApp extends Application {
     private Db db = new Db();
+
     @Override
     public void start(Stage stage) throws Exception {
         URL fxmlurl = (getClass().getResource("/resources/main.fxml"));
@@ -27,6 +28,7 @@ public class MainApp extends Application {
         } else {
             System.out.println("ERREUR : Connexion à la base de données échouée.");
         }
+
     }
 
     public static void main(String[] args) {
