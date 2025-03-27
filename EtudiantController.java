@@ -148,10 +148,13 @@ setFormulaireActif(false); // désactive le formulaire comme après un ajout
 
 
 @FXML
-    public void handleAnnuler(ActionEvent event) {
-        viderFormulaire();
-        setFormulaireActif(false);
-    }
+public void handleAnnuler(ActionEvent event) {
+    viderFormulaire();              // Vide tous les champs
+    setFormulaireActif(false);      // Grise le formulaire
+    etudiantCourant = null;         // Annule le mode modification
+    messageLabel.setText("❌ Modification annulée.");
+    messageLabel.setStyle("-fx-text-fill: gray;");
+}
 
 
     public void remplirFormulaire(Etudiant e) {
