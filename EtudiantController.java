@@ -104,6 +104,7 @@ public class EtudiantController implements Initializable {
 
     @FXML
 public void handleEnregistrer(ActionEvent event) {
+    System.out.println(">>> handleEnregistrer() APPELÉ !");
     System.out.println("✔️ Bouton Enregistrer cliqué");
     System.out.println("👤 Mode courant : " + (etudiantCourant == null ? "Ajout" : "Modification"));
 
@@ -139,7 +140,10 @@ public void handleEnregistrer(ActionEvent event) {
     }
 
     viderFormulaire();
+    System.out.println("🔁 J'appelle la méthode manuellement...");
     rafraichirTable();
+    tableView.getSelectionModel().clearSelection(); // désélectionne tout
+setFormulaireActif(false); // désactive le formulaire comme après un ajout
 }
 
 
@@ -232,12 +236,17 @@ private void ajouterBoutonModifier() {
     });
 }
 private void rafraichirTable() {
+    System.out.println(">>> rafraichirTable() APPELÉ !");
+    System.out.println("🌀 Début de rafraichirTable()");
     ObservableList<Etudiant> nouvelleListe = FXCollections.observableArrayList(etudiantDAO.getAllEtudiants());
+    System.out.println("📦 Liste récupérée : " + nouvelleListe.size() + " étudiants");
+
     etudiantData.clear();
     etudiantData.addAll(nouvelleListe);
-    updateFilter(); 
     tableView.refresh();
+    System.out.println("✅ Table rafraîchie !");
 }
+
 
 
 

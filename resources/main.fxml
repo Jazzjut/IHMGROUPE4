@@ -116,6 +116,7 @@
                   <ComboBox fx:id="filtreParcoursCombo" layoutX="8.0" layoutY="257.0" prefHeight="25.0" prefWidth="81.0" promptText="Filtrer par parcours" />
                   <ComboBox fx:id="filtrePromotionCombo" layoutX="101.0" layoutY="257.0" prefHeight="25.0" prefWidth="81.0" promptText="Filtrer par promotion" />
                   <DatePicker fx:id="datepickerfiltre" layoutX="190.0" layoutY="257.0" prefHeight="25.0" prefWidth="146.0" />
+                  <Label fx:id="messageLabel1" layoutX="442.0" layoutY="154.0" />
                </children>
             </AnchorPane>
           <AnchorPane prefHeight="697.0" prefWidth="478.0">
@@ -132,6 +133,7 @@
                   <ComboBox fx:id="promotionCombo" layoutX="113.0" layoutY="466.0" prefHeight="27.0" prefWidth="146.0" />
                   <Button fx:id="enregistrerButton" layoutX="169.0" layoutY="575.0" mnemonicParsing="false" onAction="#handleEnregistrer" text="Enregistrer" />
                   <Button fx:id="annulerButton" layoutX="60.0" layoutY="575.0" mnemonicParsing="false" onAction="#handleAnnuler" text="Annuler" />
+                  <Label fx:id="messageLabel" layoutX="192.0" layoutY="610.0" />
                </children>
             </AnchorPane>
         </items>
