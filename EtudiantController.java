@@ -16,8 +16,8 @@ public class EtudiantController implements Initializable {
     @FXML private DatePicker dateNaissancePicker;
     @FXML private ComboBox<Etudiant.Parcours> parcoursCombo;
     @FXML private ComboBox<Etudiant.Promotion> promotionCombo;
-    @FXML private Button enregistrerButton
-    ;
+    @FXML private Button enregistrerButton;
+    @FXML private Button btnAjouter;
     @FXML private Button annulerButton;
 
     // TableView
@@ -51,6 +51,7 @@ public class EtudiantController implements Initializable {
         // Chargement des données
         tableView.getItems().addAll(etudiantDAO.getAllEtudiants());
         System.out.println("Table chargée avec " + tableView.getItems().size() + " étudiants.");
+        setFormulaireActif(false); // désactive le formulaire au lancement
     }
 
     @FXML
@@ -85,11 +86,12 @@ public class EtudiantController implements Initializable {
         viderFormulaire();
         tableView.setItems(FXCollections.observableArrayList(etudiantDAO.getAllEtudiants()));
  // rafraîchit la table
-    }
+        }
 
     @FXML
     public void handleAnnuler(ActionEvent event) {
         viderFormulaire();
+        setFormulaireActif(false);
     }
 
     public void remplirFormulaire(Etudiant e) {
@@ -117,4 +119,18 @@ public class EtudiantController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    private void setFormulaireActif(boolean actif) {
+    nomField.setDisable(!actif);
+    prenomField.setDisable(!actif);
+    dateNaissancePicker.setDisable(!actif);
+    parcoursCombo.setDisable(!actif);
+    promotionCombo.setDisable(!actif);
+    enregistrerButton.setDisable(!actif);
+    annulerButton.setDisable(!actif);
+}
+@FXML
+public void handleAjouter(ActionEvent event) {
+    viderFormulaire();
+    setFormulaireActif(true); // active le formulaire
+}
 }

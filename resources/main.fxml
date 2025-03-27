@@ -105,7 +105,7 @@
                         <TableColumn prefWidth="22.66666666666663" text="Modifier" />
                     </columns>
                   </TableView>
-                  <Button fx:id="btnAjouter" layoutX="435.0" layoutY="179.0" minWidth="37.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="62.0" text="Ajouter" />
+                  <Button fx:id="btnAjouter" layoutX="435.0" layoutY="179.0" minWidth="37.0" mnemonicParsing="false" onAction="#handleAjouter" prefHeight="27.0" prefWidth="62.0" text="Ajouter" />
                   <Button fx:id="btnSupprimer" layoutX="415.0" layoutY="127.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="81.0" text="Supprimer">
                      <font>
                         <Font size="11.0" />
@@ -131,7 +131,7 @@
                   <Label layoutX="32.0" layoutY="471.0" text="Promotion" />
                   <ComboBox fx:id="promotionCombo" layoutX="113.0" layoutY="466.0" prefHeight="27.0" prefWidth="146.0" />
                   <Button fx:id="enregistrerButton" layoutX="169.0" layoutY="575.0" mnemonicParsing="false" onAction="#handleEnregistrer" text="Enregistrer" />
-                  <Button fx:id="btnAnnuler" layoutX="60.0" layoutY="575.0" mnemonicParsing="false" text="Annuler" />
+                  <Button fx:id="annulerButton" layoutX="60.0" layoutY="575.0" mnemonicParsing="false" onAction="#handleAnnuler" text="Annuler" />
                </children>
             </AnchorPane>
         </items>
