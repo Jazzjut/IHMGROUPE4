@@ -16,7 +16,8 @@ public class EtudiantController implements Initializable {
     @FXML private DatePicker dateNaissancePicker;
     @FXML private ComboBox<Etudiant.Parcours> parcoursCombo;
     @FXML private ComboBox<Etudiant.Promotion> promotionCombo;
-    @FXML private Button enregistrerButton;
+    @FXML private Button enregistrerButton
+    ;
     @FXML private Button annulerButton;
 
     // TableView
@@ -54,6 +55,8 @@ public class EtudiantController implements Initializable {
 
     @FXML
     public void handleEnregistrer(ActionEvent event) {
+        System.out.println("✔️ Bouton Enregistrer cliqué");
+        
         String nom = nomField.getText();
         String prenom = prenomField.getText();
         LocalDate dateNaissance = dateNaissancePicker.getValue();
