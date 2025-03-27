@@ -106,7 +106,7 @@
                     </columns>
                   </TableView>
                   <Button fx:id="btnAjouter" layoutX="435.0" layoutY="179.0" minWidth="37.0" mnemonicParsing="false" onAction="#handleAjouter" prefHeight="27.0" prefWidth="62.0" text="Ajouter" />
-                  <Button fx:id="btnSupprimer" layoutX="415.0" layoutY="127.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="81.0" text="Supprimer">
+                  <Button fx:id="btnSupprimer" layoutX="415.0" layoutY="127.0" mnemonicParsing="false" onAction="#handleSupprimer" prefHeight="27.0" prefWidth="81.0" text="Supprimer">
                      <font>
                         <Font size="11.0" />
                      </font>

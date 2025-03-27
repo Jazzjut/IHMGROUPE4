@@ -199,6 +199,7 @@ public void handleSupprimer(ActionEvent event) {
     Etudiant selection = tableView.getSelectionModel().getSelectedItem();
 
     if (selection == null) {
+        System.out.println("messageLabel1 = " + messageLabel1);
         messageLabel1.setText("❌ Aucun étudiant sélectionné.");
         messageLabel1.setStyle("-fx-text-fill: red;");
         return;
