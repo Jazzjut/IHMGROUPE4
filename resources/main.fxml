@@ -106,16 +106,17 @@
                     </columns>
                   </TableView>
                   <Button fx:id="btnAjouter" layoutX="435.0" layoutY="179.0" minWidth="37.0" mnemonicParsing="false" onAction="#handleAjouter" prefHeight="27.0" prefWidth="62.0" text="Ajouter" />
-                  <Button fx:id="btnSupprimer" layoutX="415.0" layoutY="127.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="81.0" text="Supprimer">
+                  <Button fx:id="btnSupprimer" layoutX="415.0" layoutY="127.0" mnemonicParsing="false" onAction="#handleSupprimer" prefHeight="27.0" prefWidth="81.0" text="Supprimer">
                      <font>
                         <Font size="11.0" />
                      </font>
                   </Button>
                   <Label layoutX="345.0" layoutY="253.0" text="Search" />
-                  <TextField fx:id="filtreNomField" layoutX="403.0" layoutY="249.0" prefHeight="14.0" prefWidth="152.0" promptText="Filtrer par nom/prénom" />
-                  <ComboBox fx:id="filtreParcoursCombo" layoutX="8.0" layoutY="257.0" prefHeight="25.0" prefWidth="81.0" promptText="Filtrer par parcours" />
-                  <ComboBox fx:id="filtrePromotionCombo" layoutX="101.0" layoutY="257.0" prefHeight="25.0" prefWidth="81.0" promptText="Filtrer par promotion" />
+                  <TextField fx:id="filtreNomField" layoutX="403.0" layoutY="249.0" prefHeight="14.0" prefWidth="152.0" />
+                  <ComboBox fx:id="filtreParcoursCombo" layoutX="8.0" layoutY="257.0" prefHeight="25.0" prefWidth="81.0" />
+                  <ComboBox fx:id="filtrePromotionCombo" layoutX="101.0" layoutY="257.0" prefHeight="25.0" prefWidth="81.0" />
                   <DatePicker fx:id="datepickerfiltre" layoutX="190.0" layoutY="257.0" prefHeight="25.0" prefWidth="146.0" />
+                  <Label fx:id="messageLabel1" layoutX="379.0" layoutY="155.0" prefHeight="17.0" prefWidth="192.0" textFill="#e80909" />
                </children>
             </AnchorPane>
           <AnchorPane prefHeight="697.0" prefWidth="478.0">
@@ -131,7 +132,8 @@
                   <Label layoutX="32.0" layoutY="471.0" text="Promotion" />
                   <ComboBox fx:id="promotionCombo" layoutX="113.0" layoutY="466.0" prefHeight="27.0" prefWidth="146.0" />
                   <Button fx:id="enregistrerButton" layoutX="169.0" layoutY="575.0" mnemonicParsing="false" onAction="#handleEnregistrer" text="Enregistrer" />
-                  <Button fx:id="annulerButton" layoutX="60.0" layoutY="575.0" mnemonicParsing="false" onAction="#handleAnnuler" text="Annuler" />
+                  <Button fx:id="annulerButton" layoutX="60.0" layoutY="575.0" mnemonicParsing="false" text="Annuler" />
+                  <Label fx:id="messageLabel" layoutX="152.0" layoutY="616.0" prefHeight="17.0" prefWidth="165.0" textFill="#e80909" />
                </children>
             </AnchorPane>
         </items>

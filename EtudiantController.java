@@ -21,6 +21,9 @@ public class EtudiantController implements Initializable {
     @FXML private Button enregistrerButton;
     @FXML private Button btnAjouter;
     @FXML private Button annulerButton;
+    @FXML private Label messageLabel;
+    @FXML private Label messageLabel1;
+    @FXML private Button btnSupprimer;
 
     // TableView
     @FXML private TableView<Etudiant> tableView;
@@ -89,45 +92,49 @@ public class EtudiantController implements Initializable {
         
 
     @FXML
-    public void handleEnregistrer(ActionEvent event) {
-        System.out.println("✔️ Bouton Enregistrer cliqué");
-        
-        String nom = nomField.getText();
-        String prenom = prenomField.getText();
-        LocalDate dateNaissance = dateNaissancePicker.getValue();
-        Etudiant.Parcours parcours = parcoursCombo.getValue();
-        Etudiant.Promotion promotion = promotionCombo.getValue();
+public void handleEnregistrer(ActionEvent event) {
+    System.out.println("✔️ Bouton Enregistrer cliqué");
 
-        if (nom.isEmpty() || prenom.isEmpty() || dateNaissance == null || parcours == null || promotion == null) {
-            showAlert("Erreur", "Veuillez remplir tous les champs.");
-            return;
-        }
+    String nom = nomField.getText();
+    String prenom = prenomField.getText();
+    LocalDate dateNaissance = dateNaissancePicker.getValue();
+    Etudiant.Parcours parcours = parcoursCombo.getValue();
+    Etudiant.Promotion promotion = promotionCombo.getValue();
 
-        if (etudiantCourant == null) {
-            // Création
-            Etudiant nouvelEtudiant = new Etudiant(nom, prenom, dateNaissance.toString(), parcours, promotion);
-            etudiantDAO.ajouterEtudiant(nouvelEtudiant);
-        } else {
-            // Modification
-            etudiantCourant.setNom(nom);
-            etudiantCourant.setPrenom(prenom);
-            etudiantCourant.setDateDeNaissance(dateNaissance.toString());
-            etudiantCourant.setParcours(parcours);
-            etudiantCourant.setPromotion(promotion);
-            etudiantDAO.modifierEtudiant(etudiantCourant);
-        }
+    if (nom.isEmpty() || prenom.isEmpty() || dateNaissance == null || parcours == null || promotion == null) {
+        messageLabel.setText("❌ Veuillez remplir tous les champs.");
+        messageLabel.setStyle("-fx-text-fill: red;");
+        return;
+    }
 
-        viderFormulaire();
-        tableView.setItems(FXCollections.observableArrayList(etudiantDAO.getAllEtudiants()));
-        
-     // rafraîchit la table
-        }
+    if (etudiantCourant == null) {
+        // Création
+        Etudiant nouvelEtudiant = new Etudiant(nom, prenom, dateNaissance.toString(), parcours, promotion);
+        etudiantDAO.ajouterEtudiant(nouvelEtudiant);
+        messageLabel.setText("✅ Étudiant ajouté !");
+        messageLabel.setStyle("-fx-text-fill: green;");
+    } else {
+        // Modification
+        etudiantCourant.setNom(nom);
+        etudiantCourant.setPrenom(prenom);
+        etudiantCourant.setDateDeNaissance(dateNaissance.toString());
+        etudiantCourant.setParcours(parcours);
+        etudiantCourant.setPromotion(promotion);
+        etudiantDAO.modifierEtudiant(etudiantCourant);
+        messageLabel.setText("✅ Étudiant modifié !");
+        messageLabel.setStyle("-fx-text-fill: green;");
+    }
 
-    @FXML
+    viderFormulaire();
+    tableView.setItems(FXCollections.observableArrayList(etudiantDAO.getAllEtudiants()));
+}
+
+@FXML
     public void handleAnnuler(ActionEvent event) {
         viderFormulaire();
         setFormulaireActif(false);
     }
+
 
     public void remplirFormulaire(Etudiant e) {
         this.etudiantCourant = e;
@@ -167,5 +174,22 @@ public class EtudiantController implements Initializable {
 public void handleAjouter(ActionEvent event) {
     viderFormulaire();
     setFormulaireActif(true); // active le formulaire
+}
+@FXML
+public void handleSupprimer(ActionEvent event) {
+    Etudiant selection = tableView.getSelectionModel().getSelectedItem();
+
+    if (selection == null) {
+        messageLabel1.setText("❌ Aucun étudiant sélectionné.");
+        messageLabel1.setStyle("-fx-text-fill: red;");
+        return;
+    }
+
+    etudiantDAO.supprimerEtudiant(selection.getId());
+
+    tableView.setItems(FXCollections.observableArrayList(etudiantDAO.getAllEtudiants()));
+    messageLabel1.setText("🗑️ Étudiant supprimé !");
+    messageLabel1.setStyle("-fx-text-fill: green;");
+    viderFormulaire();
 }
 }
