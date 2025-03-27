@@ -8,6 +8,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.ObservableList;
 
 public class EtudiantController implements Initializable {
 
@@ -28,6 +30,13 @@ public class EtudiantController implements Initializable {
     @FXML private TableColumn<Etudiant, String> ddnTC;
     @FXML private TableColumn<Etudiant, Etudiant.Parcours> parcoursTC;
     @FXML private TableColumn<Etudiant, Etudiant.Promotion> promotionTC;
+    
+    //filtre 
+    @FXML private TextField filtreNomField;
+    @FXML private ComboBox<Etudiant.Parcours> filtreParcoursCombo;
+    @FXML private ComboBox<Etudiant.Promotion> filtrePromotionCombo;
+    private FilteredList<Etudiant> filteredData;
+
 
     private Etudiant etudiantCourant;
     private EtudiantDAO etudiantDAO = new EtudiantDAO();
@@ -35,8 +44,8 @@ public class EtudiantController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Initialisation des ComboBox avec les enums
-          System.out.println("parcoursCombo = " + parcoursCombo);
-    System.out.println("promotionCombo = " + promotionCombo);
+        System.out.println("parcoursCombo = " + parcoursCombo);
+        System.out.println("promotionCombo = " + promotionCombo);
         parcoursCombo.getItems().setAll(Etudiant.Parcours.values());
         promotionCombo.getItems().setAll(Etudiant.Promotion.values());
 
@@ -47,12 +56,37 @@ public class EtudiantController implements Initializable {
         ddnTC.setCellValueFactory(new PropertyValueFactory<>("dateDeNaissance"));
         parcoursTC.setCellValueFactory(new PropertyValueFactory<>("parcours"));
         promotionTC.setCellValueFactory(new PropertyValueFactory<>("promotion"));
+        
+        ObservableList<Etudiant> data = FXCollections.observableArrayList(etudiantDAO.getAllEtudiants());
+        filteredData = new FilteredList<>(data, e -> true);
+        tableView.setItems(filteredData);
 
-        // Chargement des données
-        tableView.getItems().addAll(etudiantDAO.getAllEtudiants());
-        System.out.println("Table chargée avec " + tableView.getItems().size() + " étudiants.");
+
+        // Initialiser les ComboBox de filtre
+        filtreParcoursCombo.getItems().setAll(Etudiant.Parcours.values());
+        filtrePromotionCombo.getItems().setAll(Etudiant.Promotion.values());
+        filtreNomField.textProperty().addListener((obs, oldVal, newVal) -> updateFilter());
+        filtreParcoursCombo.valueProperty().addListener((obs, oldVal, newVal) -> updateFilter());
+        filtrePromotionCombo.valueProperty().addListener((obs, oldVal, newVal) -> updateFilter());
+    
+
+        //System.out.println("Table chargée avec " + tableView.getItems().size() + " étudiants.");
         setFormulaireActif(false); // désactive le formulaire au lancement
     }
+
+    private void updateFilter() {
+        String filtreTexte = filtreNomField.getText().toLowerCase().trim();
+        Etudiant.Parcours parcoursFiltre = filtreParcoursCombo.getValue();
+        Etudiant.Promotion promotionFiltre = filtrePromotionCombo.getValue();
+    
+        filteredData.setPredicate(e -> {
+            boolean nomMatch = e.getNom().toLowerCase().contains(filtreTexte) || e.getPrenom().toLowerCase().contains(filtreTexte);
+            boolean parcoursMatch = (parcoursFiltre == null || e.getParcours() == parcoursFiltre);
+            boolean promotionMatch = (promotionFiltre == null || e.getPromotion() == promotionFiltre);
+            return nomMatch && parcoursMatch && promotionMatch;
+        });
+    }
+        
 
     @FXML
     public void handleEnregistrer(ActionEvent event) {
@@ -85,7 +119,8 @@ public class EtudiantController implements Initializable {
 
         viderFormulaire();
         tableView.setItems(FXCollections.observableArrayList(etudiantDAO.getAllEtudiants()));
- // rafraîchit la table
+        
+     // rafraîchit la table
         }
 
     @FXML

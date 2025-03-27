@@ -112,9 +112,9 @@
                      </font>
                   </Button>
                   <Label layoutX="345.0" layoutY="253.0" text="Search" />
-                  <TextField fx:id="txtRecherche" layoutX="403.0" layoutY="249.0" prefHeight="14.0" prefWidth="152.0" />
-                  <ComboBox fx:id="comboFiltreParcours" layoutX="8.0" layoutY="257.0" prefHeight="25.0" prefWidth="81.0" />
-                  <ComboBox fx:id="comboFiltrePromotion" layoutX="101.0" layoutY="257.0" prefHeight="25.0" prefWidth="81.0" />
+                  <TextField fx:id="filtreNomField" layoutX="403.0" layoutY="249.0" prefHeight="14.0" prefWidth="152.0" promptText="Filtrer par nom/prénom" />
+                  <ComboBox fx:id="filtreParcoursCombo" layoutX="8.0" layoutY="257.0" prefHeight="25.0" prefWidth="81.0" promptText="Filtrer par parcours" />
+                  <ComboBox fx:id="filtrePromotionCombo" layoutX="101.0" layoutY="257.0" prefHeight="25.0" prefWidth="81.0" promptText="Filtrer par promotion" />
                   <DatePicker fx:id="datepickerfiltre" layoutX="190.0" layoutY="257.0" prefHeight="25.0" prefWidth="146.0" />
                </children>
             </AnchorPane>
