@@ -25,6 +25,7 @@ public class EtudiantController implements Initializable {
     @FXML private Label messageLabel1;
     @FXML private Button btnSupprimer;
 
+
     // TableView
     @FXML private TableView<Etudiant> tableView;
     @FXML private TableColumn<Etudiant, Integer> idTC;
@@ -33,12 +34,16 @@ public class EtudiantController implements Initializable {
     @FXML private TableColumn<Etudiant, String> ddnTC;
     @FXML private TableColumn<Etudiant, Etudiant.Parcours> parcoursTC;
     @FXML private TableColumn<Etudiant, Etudiant.Promotion> promotionTC;
+    @FXML private TableColumn<Etudiant, Void> modifierTC;
     
     //filtre 
     @FXML private TextField filtreNomField;
     @FXML private ComboBox<Etudiant.Parcours> filtreParcoursCombo;
     @FXML private ComboBox<Etudiant.Promotion> filtrePromotionCombo;
+    private ObservableList<Etudiant> etudiantData;
     private FilteredList<Etudiant> filteredData;
+
+    //private FilteredList<Etudiant> filteredData;
 
 
     private Etudiant etudiantCourant;
@@ -60,9 +65,13 @@ public class EtudiantController implements Initializable {
         parcoursTC.setCellValueFactory(new PropertyValueFactory<>("parcours"));
         promotionTC.setCellValueFactory(new PropertyValueFactory<>("promotion"));
         
-        ObservableList<Etudiant> data = FXCollections.observableArrayList(etudiantDAO.getAllEtudiants());
-        filteredData = new FilteredList<>(data, e -> true);
+        etudiantData = FXCollections.observableArrayList(etudiantDAO.getAllEtudiants());
+        filteredData = new FilteredList<>(etudiantData, e -> true);
         tableView.setItems(filteredData);
+
+        //ObservableList<Etudiant> data = FXCollections.observableArrayList(etudiantDAO.getAllEtudiants());
+        //filteredData = new FilteredList<>(data, e -> true);
+        //tableView.setItems(filteredData);
 
 
         // Initialiser les ComboBox de filtre
@@ -75,6 +84,8 @@ public class EtudiantController implements Initializable {
 
         //System.out.println("Table chargée avec " + tableView.getItems().size() + " étudiants.");
         setFormulaireActif(false); // désactive le formulaire au lancement
+        ajouterBoutonModifier();
+
     }
 
     private void updateFilter() {
@@ -89,11 +100,12 @@ public class EtudiantController implements Initializable {
             return nomMatch && parcoursMatch && promotionMatch;
         });
     }
-        
+       
 
     @FXML
 public void handleEnregistrer(ActionEvent event) {
     System.out.println("✔️ Bouton Enregistrer cliqué");
+    System.out.println("👤 Mode courant : " + (etudiantCourant == null ? "Ajout" : "Modification"));
 
     String nom = nomField.getText();
     String prenom = prenomField.getText();
@@ -108,13 +120,14 @@ public void handleEnregistrer(ActionEvent event) {
     }
 
     if (etudiantCourant == null) {
-        // Création
+        // ✅ Ajout
         Etudiant nouvelEtudiant = new Etudiant(nom, prenom, dateNaissance.toString(), parcours, promotion);
         etudiantDAO.ajouterEtudiant(nouvelEtudiant);
         messageLabel.setText("✅ Étudiant ajouté !");
         messageLabel.setStyle("-fx-text-fill: green;");
     } else {
-        // Modification
+        // ✅ Modification
+        System.out.println("🔧 MODIF → ID = " + etudiantCourant.getId());
         etudiantCourant.setNom(nom);
         etudiantCourant.setPrenom(prenom);
         etudiantCourant.setDateDeNaissance(dateNaissance.toString());
@@ -126,8 +139,9 @@ public void handleEnregistrer(ActionEvent event) {
     }
 
     viderFormulaire();
-    tableView.setItems(FXCollections.observableArrayList(etudiantDAO.getAllEtudiants()));
+    rafraichirTable();
 }
+
 
 @FXML
     public void handleAnnuler(ActionEvent event) {
@@ -173,6 +187,7 @@ public void handleEnregistrer(ActionEvent event) {
 @FXML
 public void handleAjouter(ActionEvent event) {
     viderFormulaire();
+    etudiantCourant = null;
     setFormulaireActif(true); // active le formulaire
 }
 @FXML
@@ -186,10 +201,45 @@ public void handleSupprimer(ActionEvent event) {
     }
 
     etudiantDAO.supprimerEtudiant(selection.getId());
+    rafraichirTable();
 
-    tableView.setItems(FXCollections.observableArrayList(etudiantDAO.getAllEtudiants()));
+    //tableView.setItems(FXCollections.observableArrayList(etudiantDAO.getAllEtudiants()));
     messageLabel1.setText("🗑️ Étudiant supprimé !");
     messageLabel1.setStyle("-fx-text-fill: green;");
     viderFormulaire();
 }
+private void ajouterBoutonModifier() {
+    modifierTC.setCellFactory(col -> new TableCell<Etudiant, Void>() {
+        private final Button btn = new Button("Modifier");
+
+        {
+            btn.setOnAction(event -> {
+                Etudiant e = getTableView().getItems().get(getIndex());
+                remplirFormulaire(e);
+                setFormulaireActif(true);
+            });
+        }
+
+        @Override
+        protected void updateItem(Void item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty) {
+                setGraphic(null);
+            } else {
+                setGraphic(btn);
+            }
+        }
+    });
+}
+private void rafraichirTable() {
+    ObservableList<Etudiant> nouvelleListe = FXCollections.observableArrayList(etudiantDAO.getAllEtudiants());
+    etudiantData.clear();
+    etudiantData.addAll(nouvelleListe);
+    updateFilter(); 
+    tableView.refresh();
+}
+
+
+
+
 }
