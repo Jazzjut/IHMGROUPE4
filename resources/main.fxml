@@ -117,6 +117,9 @@
                   <ComboBox fx:id="filtrePromotionCombo" layoutX="101.0" layoutY="257.0" prefHeight="25.0" prefWidth="81.0" promptText="Filtrer par promotion" />
                   <DatePicker fx:id="filtreDatePicker" layoutX="190.0" layoutY="257.0" prefHeight="25.0" prefWidth="146.0" />
                   <Label fx:id="messageLabel1" layoutX="442.0" layoutY="154.0" />
+                  <Button fx:id="btnSuivant" layoutX="505.0" layoutY="718.0" mnemonicParsing="false" onAction="#handleSuivant" text="Suivant" />
+                  <Button fx:id="btnPrecedent" layoutX="8.0" layoutY="718.0" mnemonicParsing="false" onAction="#handlePrecedent" text="Précédent" />
+                  <Label fx:id="pageLabel" layoutX="268.0" layoutY="722.0" text="Page 1" />
                </children>
             </AnchorPane>
           <AnchorPane prefHeight="697.0" prefWidth="478.0">

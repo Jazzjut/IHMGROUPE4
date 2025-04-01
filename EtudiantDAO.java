@@ -89,4 +89,50 @@ public class EtudiantDAO {
             System.out.println("ERREUR : Étudiant pas supprimé.");
         }
     }
+    
+    //Charger étudiant
+    public List<Etudiant> getEtudiantsParPage(int limit, int offset) {
+    List<Etudiant> etudiants = new ArrayList<>();
+    String sql = "SELECT * FROM etudiants LIMIT ? OFFSET ?";
+
+    try (Connection conn = db.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setInt(1, limit);
+        pstmt.setInt(2, offset);
+        ResultSet rs = pstmt.executeQuery();
+
+        while (rs.next()) {
+            Etudiant e = new Etudiant(
+                rs.getInt("id"),
+                rs.getString("nom"),
+                rs.getString("prenom"),
+                rs.getString("date_naissance"),
+                Etudiant.Parcours.valueOf(rs.getString("parcours")),
+                Etudiant.Promotion.valueOf(rs.getString("promotion"))
+            );
+            etudiants.add(e);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return etudiants;
+}
+
+public int getNombreTotalEtudiants() {
+    String sql = "SELECT COUNT(*) FROM etudiants";
+    try (Connection conn = db.getConnection();
+         Statement stmt = conn.createStatement();
+         ResultSet rs = stmt.executeQuery(sql)) {
+
+        if (rs.next()) {
+            return rs.getInt(1);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return 0;
+}
 }

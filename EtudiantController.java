@@ -4,6 +4,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
+import java.util.List; 
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -25,7 +26,14 @@ public class EtudiantController implements Initializable {
     @FXML private Label messageLabel;
     @FXML private Label messageLabel1;
     @FXML private Button btnSupprimer;
-
+    
+    // Pagination
+    @FXML private Button btnPrecedent;
+    @FXML private Button btnSuivant;
+    @FXML private Label pageLabel;
+    private int currentPage = 1;
+    private final int pageSize = 10;
+    private int totalEtudiants = 0;
 
     // TableView
     @FXML private TableView<Etudiant> tableView;
@@ -86,6 +94,10 @@ public class EtudiantController implements Initializable {
         //System.out.println("Table chargée avec " + tableView.getItems().size() + " étudiants.");
         setFormulaireActif(false); // désactive le formulaire au lancement
         ajouterBoutonModifier();
+        
+        //Charger page
+        totalEtudiants = etudiantDAO.getNombreTotalEtudiants();
+        chargerPage(1);
 
     }
 
@@ -256,8 +268,33 @@ private void rafraichirTable() {
     tableView.refresh();
     System.out.println("✅ Table rafraîchie !");
 }
+    // Méthode pour charger une page spécifique 
+    private void chargerPage(int page) {
+    int offset = (page - 1) * pageSize;
+    List<Etudiant> pageData = etudiantDAO.getEtudiantsParPage(pageSize, offset);
+    etudiantData.setAll(pageData);
+    tableView.refresh();
+    currentPage = page;
+    pageLabel.setText("Page " + currentPage);
+    updatePaginationButtons();
+}
+    private void updatePaginationButtons() {
+    btnPrecedent.setDisable(currentPage == 1);
+    btnSuivant.setDisable(currentPage * pageSize >= totalEtudiants);
+}
+@FXML
+public void handlePrecedent(ActionEvent event) {
+    if (currentPage > 1) {
+        chargerPage(currentPage - 1);
+    }
+}
 
-
+@FXML
+public void handleSuivant(ActionEvent event) {
+    if ((currentPage * pageSize) < totalEtudiants) {
+        chargerPage(currentPage + 1);
+    }
+}
 
 
 
