@@ -95,7 +95,7 @@
                <children>
                   <TableView fx:id="tableView" layoutX="8.0" layoutY="294.0" prefHeight="423.0" prefWidth="547.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="294.0">
                     <columns>
-                        <TableColumn prefWidth="30.0" />
+                        <TableColumn fx:id="checkbox" prefWidth="30.0" />
                       <TableColumn fx:id="idTC" minWidth="9.999969482421875" prefWidth="30.666656494140625" text="id" />
                       <TableColumn fx:id="nomTC" prefWidth="89.33338928222656" text="Nom" />
                         <TableColumn fx:id="prenomTC" prefWidth="78.66668701171875" text="Prénom " />
