@@ -1,3 +1,5 @@
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 /**
  * Décrivez votre classe Etudiant ici.
  * Classe représentant un étudiant avec ses informations personnelles.
@@ -7,12 +9,20 @@
  */
 public class Etudiant
 {
+    private int id;
+    private String nom;
+    private String prenom;
+    private String dateDeNaissance;
+    private Parcours parcours;
+    private Promotion promotion;
+    private BooleanProperty selected = new SimpleBooleanProperty(false);
+
     // Enumérations pour le parcours et la promotion
     public enum Parcours {
     ECMPS("ECMPS"),
     GCELL("GCell"),
     GPHY("GPhy");
-
+    
     private final String label;
 
     Parcours(String label) {
@@ -23,7 +33,7 @@ public class Etudiant
     public String toString() {
         return label;
     }
-}   
+    }   
 
     public enum Promotion {
     M1("Master 1"),
@@ -40,14 +50,6 @@ public class Etudiant
         return label;
     }
     }
-
-    // Attributs privés
-    private int id;
-    private String nom;
-    private String prenom;
-    private String dateDeNaissance;
-    private Parcours parcours;
-    private Promotion promotion;
 
     // Constructeur sans paramètres
     public Etudiant()
@@ -129,5 +131,18 @@ public class Etudiant
 
     public void setPromotion(Promotion promotion) {
         this.promotion = promotion;
+    }
+    
+    // checkbox 
+    public BooleanProperty selectedProperty() {
+        return selected;
+    }
+
+    public boolean isSelected() {
+        return selected.get();
+    }
+
+    public void setSelected(boolean value) {
+        selected.set(value);
     }
 }

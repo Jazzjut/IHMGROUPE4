@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.ObservableList;
+import javafx.scene.control.cell.CheckBoxTableCell;
+
 
 public class EtudiantController implements Initializable {
 
@@ -37,6 +39,8 @@ public class EtudiantController implements Initializable {
 
     // TableView
     @FXML private TableView<Etudiant> tableView;
+    @FXML private TableColumn<Etudiant, Boolean> selectCol;
+    @FXML private CheckBox selectAllCheckBox;
     @FXML private TableColumn<Etudiant, Integer> idTC;
     @FXML private TableColumn<Etudiant, String> nomTC;
     @FXML private TableColumn<Etudiant, String> prenomTC;
@@ -73,6 +77,12 @@ public class EtudiantController implements Initializable {
         ddnTC.setCellValueFactory(new PropertyValueFactory<>("dateDeNaissance"));
         parcoursTC.setCellValueFactory(new PropertyValueFactory<>("parcours"));
         promotionTC.setCellValueFactory(new PropertyValueFactory<>("promotion"));
+        
+        // Colonne checkbox (liaison à la propriété selected)
+        selectCol.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
+        selectCol.setCellFactory(CheckBoxTableCell.forTableColumn(selectCol));
+        selectCol.setEditable(true);
+        tableView.setEditable(true);
         
         etudiantData = FXCollections.observableArrayList(etudiantDAO.getAllEtudiants());
         filteredData = new FilteredList<>(etudiantData, e -> true);
@@ -209,31 +219,38 @@ public void handleAnnuler(ActionEvent event) {
     enregistrerButton.setDisable(!actif);
     annulerButton.setDisable(!actif);
 }
-@FXML
-public void handleAjouter(ActionEvent event) {
-    viderFormulaire();
-    etudiantCourant = null;
-    setFormulaireActif(true); // active le formulaire
-}
-@FXML
-public void handleSupprimer(ActionEvent event) {
-    Etudiant selection = tableView.getSelectionModel().getSelectedItem();
 
-    if (selection == null) {
-        System.out.println("messageLabel1 = " + messageLabel1);
-        messageLabel1.setText("❌ Aucun étudiant sélectionné.");
-        messageLabel1.setStyle("-fx-text-fill: red;");
-        return;
+    @FXML
+    public void handleAjouter(ActionEvent event) {
+        viderFormulaire();
+        etudiantCourant = null;
+        setFormulaireActif(true); // active le formulaire
     }
-
-    etudiantDAO.supprimerEtudiant(selection.getId());
-    rafraichirTable();
-
-    //tableView.setItems(FXCollections.observableArrayList(etudiantDAO.getAllEtudiants()));
-    messageLabel1.setText("🗑️ Étudiant supprimé !");
-    messageLabel1.setStyle("-fx-text-fill: green;");
-    viderFormulaire();
-}
+    
+    @FXML
+    public void handleSupprimer(ActionEvent event) {
+        // Récupère les étudiants cochés
+        var selectionnes = tableView.getItems().filtered(Etudiant::isSelected);
+    
+        if (selectionnes.isEmpty()) {
+            messageLabel1.setText("Aucun étudiant sélectionné.");
+            messageLabel1.setStyle("-fx-text-fill: red;");
+            return;
+        }
+    
+        // Suppression
+        for (Etudiant e : selectionnes) {
+            etudiantDAO.supprimerEtudiant(e.getId());
+        }
+    
+        // Feedback
+        messageLabel1.setText("Étudiants supprimés !");
+        messageLabel1.setStyle("-fx-text-fill: green;");
+        selectAllCheckBox.setSelected(false);
+        rafraichirTable();
+        viderFormulaire();
+    }
+    
 private void ajouterBoutonModifier() {
     modifierTC.setCellFactory(col -> new TableCell<Etudiant, Void>() {
         private final Button btn = new Button("Modifier");
@@ -258,15 +275,31 @@ private void ajouterBoutonModifier() {
     });
 }
 private void rafraichirTable() {
-    System.out.println(">>> rafraichirTable() APPELÉ !");
-    System.out.println("🌀 Début de rafraichirTable()");
-    ObservableList<Etudiant> nouvelleListe = FXCollections.observableArrayList(etudiantDAO.getAllEtudiants());
-    System.out.println("📦 Liste récupérée : " + nouvelleListe.size() + " étudiants");
+    // System.out.println(">>> rafraichirTable() APPELÉ !");
+    // System.out.println("Début de rafraichirTable()");
+    // ObservableList<Etudiant> nouvelleListe = FXCollections.observableArrayList(etudiantDAO.getAllEtudiants());
+    // System.out.println("?Liste récupérée : " + nouvelleListe.size() + " étudiants");
 
-    etudiantData.clear();
-    etudiantData.addAll(nouvelleListe);
-    tableView.refresh();
-    System.out.println("✅ Table rafraîchie !");
+    // etudiantData.clear();
+    // etudiantData.addAll(nouvelleListe);
+    // tableView.refresh();
+    // System.out.println("Table rafraîchie !");
+    
+    System.out.println(">>> rafraichirTable() APPELÉ !");
+    
+    // 🔁 Met à jour le total
+    totalEtudiants = etudiantDAO.getNombreTotalEtudiants();
+
+    // 🔁 Recharge la page actuelle
+    // Si on est à la page 4 mais qu’il ne reste plus que 3 pages après suppression, on recule d’une page
+    int maxPages = (int) Math.ceil((double) totalEtudiants / pageSize);
+    if (currentPage > maxPages && maxPages > 0) {
+        currentPage = maxPages;
+    } else if (maxPages == 0) {
+        currentPage = 1;
+    }
+
+    chargerPage(currentPage);
 }
     // Méthode pour charger une page spécifique 
     private void chargerPage(int page) {
@@ -296,6 +329,12 @@ public void handleSuivant(ActionEvent event) {
     }
 }
 
-
+@FXML
+private void handleSelectAll(ActionEvent event) {
+    boolean isSelected = selectAllCheckBox.isSelected();
+    for (Etudiant e : tableView.getItems()) {
+        e.setSelected(isSelected);
+    }
+}
 
 }
