@@ -16,6 +16,7 @@ public class EtudiantController implements Initializable {
     @FXML private TextField nomField;
     @FXML private TextField prenomField;
     @FXML private DatePicker dateNaissancePicker;
+    @FXML private DatePicker filtreDatePicker;
     @FXML private ComboBox<Etudiant.Parcours> parcoursCombo;
     @FXML private ComboBox<Etudiant.Promotion> promotionCombo;
     @FXML private Button enregistrerButton;
@@ -68,7 +69,7 @@ public class EtudiantController implements Initializable {
         etudiantData = FXCollections.observableArrayList(etudiantDAO.getAllEtudiants());
         filteredData = new FilteredList<>(etudiantData, e -> true);
         tableView.setItems(filteredData);
-
+        filtreDatePicker.valueProperty().addListener((obs, oldVal, newVal) -> updateFilter());
         //ObservableList<Etudiant> data = FXCollections.observableArrayList(etudiantDAO.getAllEtudiants());
         //filteredData = new FilteredList<>(data, e -> true);
         //tableView.setItems(filteredData);
@@ -89,17 +90,22 @@ public class EtudiantController implements Initializable {
     }
 
     private void updateFilter() {
-        String filtreTexte = filtreNomField.getText().toLowerCase().trim();
-        Etudiant.Parcours parcoursFiltre = filtreParcoursCombo.getValue();
-        Etudiant.Promotion promotionFiltre = filtrePromotionCombo.getValue();
-    
-        filteredData.setPredicate(e -> {
-            boolean nomMatch = e.getNom().toLowerCase().contains(filtreTexte) || e.getPrenom().toLowerCase().contains(filtreTexte);
-            boolean parcoursMatch = (parcoursFiltre == null || e.getParcours() == parcoursFiltre);
-            boolean promotionMatch = (promotionFiltre == null || e.getPromotion() == promotionFiltre);
-            return nomMatch && parcoursMatch && promotionMatch;
-        });
-    }
+    String filtreTexte = filtreNomField.getText().toLowerCase().trim();
+    Etudiant.Parcours parcoursFiltre = filtreParcoursCombo.getValue();
+    Etudiant.Promotion promotionFiltre = filtrePromotionCombo.getValue();
+    LocalDate dateFiltre = filtreDatePicker.getValue();
+
+    filteredData.setPredicate(e -> {
+        boolean nomMatch = e.getNom().toLowerCase().contains(filtreTexte)
+                        || e.getPrenom().toLowerCase().contains(filtreTexte);
+        boolean parcoursMatch = (parcoursFiltre == null || e.getParcours() == parcoursFiltre);
+        boolean promotionMatch = (promotionFiltre == null || e.getPromotion() == promotionFiltre);
+        boolean dateMatch = (dateFiltre == null || LocalDate.parse(e.getDateDeNaissance()).isEqual(dateFiltre));
+
+        return nomMatch && parcoursMatch && promotionMatch && dateMatch;
+    });
+}
+
        
 
     @FXML
