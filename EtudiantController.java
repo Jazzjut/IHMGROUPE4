@@ -14,6 +14,8 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import java.util.Stack;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 
 public class EtudiantController implements Initializable {
@@ -140,6 +142,7 @@ public class EtudiantController implements Initializable {
    @FXML
 public void handleEnregistrer(ActionEvent event) {
     System.out.println("✔️ Bouton Enregistrer cliqué");
+    effacerMessages();
 
     // 1. Récupération des champs
     String nom = nomField.getText();
@@ -150,9 +153,7 @@ public void handleEnregistrer(ActionEvent event) {
 
     // 2. Validation
     if (nom.isEmpty() || prenom.isEmpty() || dateNaissance == null || parcours == null || promotion == null) {
-        messageLabel.setText("❌ Veuillez remplir tous les champs.");
-        messageLabel.setStyle("-fx-text-fill: red;");
-        return;
+        afficherMessageTemporaire(messageLabel,"❌ Veuillez remplir tous les champs.", "red");        return;
     }
 
     // 3. Mode AJOUT
@@ -163,8 +164,7 @@ public void handleEnregistrer(ActionEvent event) {
        nouvelEtudiant = etudiantDAO.ajouterEtudiant(nouvelEtudiant);
 historiqueActions.push(new AjoutAction(etudiantDAO, nouvelEtudiant));
 
-        messageLabel.setText("✅ Étudiant ajouté !");
-        messageLabel.setStyle("-fx-text-fill: green;");
+       afficherMessageTemporaire(messageLabel, "✅ Étudiant ajouté !", "green");
     }
     // 4. Mode MODIFICATION
     else {
@@ -183,7 +183,7 @@ historiqueActions.push(new AjoutAction(etudiantDAO, nouvelEtudiant));
         historiqueActions.push(new ModificationAction(etudiantDAO, ancien, etudiantCourant));
 
         messageLabel.setText("✅ Étudiant modifié !");
-        messageLabel.setStyle("-fx-text-fill: green;");
+       afficherMessageTemporaire(messageLabel, "✅ Étudiant modifié !", "green");
     }
 
     // 5. Nettoyage final
@@ -197,11 +197,12 @@ historiqueActions.push(new AjoutAction(etudiantDAO, nouvelEtudiant));
 
 @FXML
 public void handleAnnuler(ActionEvent event) {
+    effacerMessages();
     viderFormulaire();              // Vide tous les champs
     setFormulaireActif(false);      // Grise le formulaire
     etudiantCourant = null;         // Annule le mode modification
-    messageLabel.setText("❌ Modification annulée.");
-    messageLabel.setStyle("-fx-text-fill: gray;");
+ 
+    afficherMessageTemporaire(messageLabel, "❌ Modification annulée.", "gray");
 }
 
 
@@ -242,6 +243,7 @@ public void handleAnnuler(ActionEvent event) {
 
     @FXML
     public void handleAjouter(ActionEvent event) {
+        effacerMessages();
         viderFormulaire();
         etudiantCourant = null;
         setFormulaireActif(true); // active le formulaire
@@ -249,11 +251,11 @@ public void handleAnnuler(ActionEvent event) {
     
     @FXML
 public void handleSupprimer(ActionEvent event) {
+    effacerMessages();
     var selectionnes = tableView.getItems().filtered(Etudiant::isSelected);
 
     if (selectionnes.isEmpty()) {
-        messageLabel1.setText("Aucun étudiant sélectionné.");
-        messageLabel1.setStyle("-fx-text-fill: red;");
+        afficherMessageTemporaire(messageLabel, "Aucun étudiant sélectionné.", "gray");
         return;
     }
 
@@ -266,8 +268,9 @@ public void handleSupprimer(ActionEvent event) {
     }
 
     // Feedback
-    messageLabel1.setText("Étudiants supprimés !");
-    messageLabel1.setStyle("-fx-text-fill: green;");
+    afficherMessageTemporaire(messageLabel1, "Étudiants supprimés !", "green");
+
+    // Ces lignes DOIVENT être exécutées après suppression
     selectAllCheckBox.setSelected(false);
     rafraichirTable();
     viderFormulaire();
@@ -360,16 +363,30 @@ private void handleSelectAll(ActionEvent event) {
 }
 @FXML
 public void handleUndo(ActionEvent event) {
+    effacerMessages();
     if (!historiqueActions.isEmpty()) {
         Action derniereAction = historiqueActions.pop(); // retire la dernière action
         derniereAction.undo();                            // annule cette action
         rafraichirTable();                                // met à jour la table
-        messageLabel1.setText("↩️ Action annulée !");
-        messageLabel1.setStyle("-fx-text-fill: orange;");
+       
+        afficherMessageTemporaire(messageLabel, "↩️ Action annulée !", "orange");
+        
     } else {
-        messageLabel1.setText("Aucune action à annuler.");
-        messageLabel1.setStyle("-fx-text-fill: gray;");
+        
+         afficherMessageTemporaire(messageLabel, "Aucune action à annuler.", "gray");
     }
 }
+private void afficherMessageTemporaire(Label label, String message, String color) {
+    label.setText(message);
+    label.setStyle("-fx-text-fill: " + color + ";");
+    label.setVisible(true);
 
+    PauseTransition pause = new PauseTransition(Duration.seconds(3));
+    pause.setOnFinished(e -> label.setVisible(false));
+    pause.play();
+}
+private void effacerMessages() {
+    messageLabel.setVisible(false);
+    messageLabel1.setVisible(false);
+}
 }
