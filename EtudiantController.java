@@ -159,7 +159,6 @@ public void handleEnregistrer(ActionEvent event) {
     if (etudiantCourant == null) {
         Etudiant nouvelEtudiant = new Etudiant(nom, prenom, dateNaissance.toString(), parcours, promotion);
         
-        etudiantDAO.ajouterEtudiant(nouvelEtudiant);
 
        nouvelEtudiant = etudiantDAO.ajouterEtudiant(nouvelEtudiant);
 historiqueActions.push(new AjoutAction(etudiantDAO, nouvelEtudiant));
