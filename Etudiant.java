@@ -1,14 +1,13 @@
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+
 /**
- * Décrivez votre classe Etudiant ici.
  * Classe représentant un étudiant avec ses informations personnelles.
  * 
  * @author Iman
  * @version 26/03/2025
  */
-public class Etudiant
-{
+public class Etudiant {
     private int id;
     private String nom;
     private String prenom;
@@ -19,41 +18,40 @@ public class Etudiant
 
     // Enumérations pour le parcours et la promotion
     public enum Parcours {
-    ECMPS("ECMPS"),
-    GCELL("GCell"),
-    GPHY("GPhy");
-    
-    private final String label;
+        ECMPS("ECMPS"),
+        GCELL("GCell"),
+        GPHY("GPhy");
 
-    Parcours(String label) {
-        this.label = label;
-    }
+        private final String label;
 
-    @Override
-    public String toString() {
-        return label;
+        Parcours(String label) {
+            this.label = label;
+        }
+
+        @Override
+        public String toString() {
+            return label;
+        }
     }
-    }   
 
     public enum Promotion {
-    M1("Master 1"),
-    M2("Master 2");
+        M1("Master 1"),
+        M2("Master 2");
 
-    private final String label;
+        private final String label;
 
-    Promotion(String label) {
-        this.label = label;
-    }
+        Promotion(String label) {
+            this.label = label;
+        }
 
-    @Override
-    public String toString() {
-        return label;
-    }
+        @Override
+        public String toString() {
+            return label;
+        }
     }
 
     // Constructeur sans paramètres
-    public Etudiant()
-    {
+    public Etudiant() {
         this.id = 0;
         this.nom = "";
         this.prenom = "";
@@ -62,19 +60,17 @@ public class Etudiant
         this.promotion = Promotion.M1;
     }
 
-    // Constructeur avec paramètres pour ajout sans id
-    public Etudiant(String nom, String prenom, String dateDeNaissance, Parcours parcours, Promotion promotion)
-    {
+    // Constructeur avec paramètres (sans id)
+    public Etudiant(String nom, String prenom, String dateDeNaissance, Parcours parcours, Promotion promotion) {
         this.nom = nom;
         this.prenom = prenom;
         this.dateDeNaissance = dateDeNaissance;
         this.parcours = parcours;
         this.promotion = promotion;
     }
-    
-    // Constructeur avec paramètres pour lecture/modif:suppression
-    public Etudiant(int id, String nom, String prenom, String dateDeNaissance, Parcours parcours, Promotion promotion)
-    {
+
+    // Constructeur avec tous les paramètres (lecture depuis la BDD)
+    public Etudiant(int id, String nom, String prenom, String dateDeNaissance, Parcours parcours, Promotion promotion) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -82,12 +78,23 @@ public class Etudiant
         this.parcours = parcours;
         this.promotion = promotion;
     }
-    
+
+    // ✅ Constructeur de copie
+    public Etudiant(Etudiant autre) {
+        this.id = autre.id;
+        this.nom = autre.nom;
+        this.prenom = autre.prenom;
+        this.dateDeNaissance = autre.dateDeNaissance;
+        this.parcours = autre.parcours;
+        this.promotion = autre.promotion;
+        this.selected = new SimpleBooleanProperty(autre.isSelected());
+    }
+
     // Getters
-    public int getId(){
+    public int getId() {
         return id;
     }
-    
+
     public String getNom() {
         return nom;
     }
@@ -108,11 +115,19 @@ public class Etudiant
         return promotion;
     }
 
-    // Setters
-    public void setId (int id){
-        this.id = id; 
+    public boolean isSelected() {
+        return selected.get();
     }
-    
+
+    public BooleanProperty selectedProperty() {
+        return selected;
+    }
+
+    // Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -132,17 +147,8 @@ public class Etudiant
     public void setPromotion(Promotion promotion) {
         this.promotion = promotion;
     }
-    
-    // checkbox 
-    public BooleanProperty selectedProperty() {
-        return selected;
-    }
-
-    public boolean isSelected() {
-        return selected.get();
-    }
 
     public void setSelected(boolean value) {
-        selected.set(value);
+        this.selected.set(value);
     }
 }

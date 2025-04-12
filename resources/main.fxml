@@ -45,6 +45,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -124,6 +126,15 @@
                   <Button fx:id="btnSuivant" layoutX="505.0" layoutY="718.0" mnemonicParsing="false" onAction="#handleSuivant" text="Suivant" />
                   <Button fx:id="btnPrecedent" layoutX="8.0" layoutY="718.0" mnemonicParsing="false" onAction="#handlePrecedent" text="Précédent" />
                   <Label fx:id="pageLabel" layoutX="268.0" layoutY="722.0" text="Page 1" />
+                  <Button fx:id="btnUndo" layoutX="17.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleUndo" prefHeight="26.0" prefWidth="29.0">
+                     <graphic>
+                        <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../Applications/images_fleche.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </AnchorPane>
           <AnchorPane prefHeight="697.0" prefWidth="478.0">

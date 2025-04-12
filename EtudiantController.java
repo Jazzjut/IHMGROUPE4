@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.List; 
+import java.util.ArrayList;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.CheckBoxTableCell;
+import java.util.Stack;
 
 
 public class EtudiantController implements Initializable {
@@ -36,6 +38,7 @@ public class EtudiantController implements Initializable {
     private int currentPage = 1;
     private final int pageSize = 10;
     private int totalEtudiants = 0;
+    @FXML private Button btnUndo;
 
     // TableView
     @FXML private TableView<Etudiant> tableView;
@@ -61,6 +64,8 @@ public class EtudiantController implements Initializable {
 
     private Etudiant etudiantCourant;
     private EtudiantDAO etudiantDAO = new EtudiantDAO();
+    
+    private Stack<Action> historiqueActions = new Stack<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -130,48 +135,61 @@ public class EtudiantController implements Initializable {
 
        
 
-    @FXML
+   @FXML
 public void handleEnregistrer(ActionEvent event) {
-    System.out.println(">>> handleEnregistrer() APPELÉ !");
     System.out.println("✔️ Bouton Enregistrer cliqué");
-    System.out.println("👤 Mode courant : " + (etudiantCourant == null ? "Ajout" : "Modification"));
 
+    // 1. Récupération des champs
     String nom = nomField.getText();
     String prenom = prenomField.getText();
     LocalDate dateNaissance = dateNaissancePicker.getValue();
     Etudiant.Parcours parcours = parcoursCombo.getValue();
     Etudiant.Promotion promotion = promotionCombo.getValue();
 
+    // 2. Validation
     if (nom.isEmpty() || prenom.isEmpty() || dateNaissance == null || parcours == null || promotion == null) {
         messageLabel.setText("❌ Veuillez remplir tous les champs.");
         messageLabel.setStyle("-fx-text-fill: red;");
         return;
     }
 
+    // 3. Mode AJOUT
     if (etudiantCourant == null) {
-        // ✅ Ajout
         Etudiant nouvelEtudiant = new Etudiant(nom, prenom, dateNaissance.toString(), parcours, promotion);
         etudiantDAO.ajouterEtudiant(nouvelEtudiant);
+
+        // 🔁 Mise à jour pile Undo
+        historiqueActions.push(new AjoutAction(etudiantDAO, nouvelEtudiant));
+
         messageLabel.setText("✅ Étudiant ajouté !");
         messageLabel.setStyle("-fx-text-fill: green;");
-    } else {
-        // ✅ Modification
-        System.out.println("🔧 MODIF → ID = " + etudiantCourant.getId());
+    }
+    // 4. Mode MODIFICATION
+    else {
+        Etudiant ancien = new Etudiant(etudiantCourant); // copie avant modification
+
+        // Modification en base
         etudiantCourant.setNom(nom);
         etudiantCourant.setPrenom(prenom);
         etudiantCourant.setDateDeNaissance(dateNaissance.toString());
         etudiantCourant.setParcours(parcours);
         etudiantCourant.setPromotion(promotion);
+
         etudiantDAO.modifierEtudiant(etudiantCourant);
+
+        // 🔁 Historique Undo
+        historiqueActions.push(new ModificationAction(etudiantDAO, ancien, etudiantCourant));
+
         messageLabel.setText("✅ Étudiant modifié !");
         messageLabel.setStyle("-fx-text-fill: green;");
     }
 
+    // 5. Nettoyage final
     viderFormulaire();
-    System.out.println("🔁 J'appelle la méthode manuellement...");
+    etudiantCourant = null;
+    setFormulaireActif(false);
     rafraichirTable();
-    tableView.getSelectionModel().clearSelection(); // désélectionne tout
-setFormulaireActif(false); // désactive le formulaire comme après un ajout
+    tableView.getSelectionModel().clearSelection();
 }
 
 
@@ -228,28 +246,30 @@ public void handleAnnuler(ActionEvent event) {
     }
     
     @FXML
-    public void handleSupprimer(ActionEvent event) {
-        // Récupère les étudiants cochés
-        var selectionnes = tableView.getItems().filtered(Etudiant::isSelected);
-    
-        if (selectionnes.isEmpty()) {
-            messageLabel1.setText("Aucun étudiant sélectionné.");
-            messageLabel1.setStyle("-fx-text-fill: red;");
-            return;
-        }
-    
-        // Suppression
-        for (Etudiant e : selectionnes) {
-            etudiantDAO.supprimerEtudiant(e.getId());
-        }
-    
-        // Feedback
-        messageLabel1.setText("Étudiants supprimés !");
-        messageLabel1.setStyle("-fx-text-fill: green;");
-        selectAllCheckBox.setSelected(false);
-        rafraichirTable();
-        viderFormulaire();
+public void handleSupprimer(ActionEvent event) {
+    var selectionnes = tableView.getItems().filtered(Etudiant::isSelected);
+
+    if (selectionnes.isEmpty()) {
+        messageLabel1.setText("Aucun étudiant sélectionné.");
+        messageLabel1.setStyle("-fx-text-fill: red;");
+        return;
     }
+
+    // 🔁 Ajouter à l'historique pour Undo
+    historiqueActions.push(new SuppressionMultipleAction(etudiantDAO, new ArrayList<>(selectionnes)));
+
+    // Suppression réelle
+    for (Etudiant e : selectionnes) {
+        etudiantDAO.supprimerEtudiant(e.getId());
+    }
+
+    // Feedback
+    messageLabel1.setText("Étudiants supprimés !");
+    messageLabel1.setStyle("-fx-text-fill: green;");
+    selectAllCheckBox.setSelected(false);
+    rafraichirTable();
+    viderFormulaire();
+}
     
 private void ajouterBoutonModifier() {
     modifierTC.setCellFactory(col -> new TableCell<Etudiant, Void>() {
@@ -334,6 +354,19 @@ private void handleSelectAll(ActionEvent event) {
     boolean isSelected = selectAllCheckBox.isSelected();
     for (Etudiant e : tableView.getItems()) {
         e.setSelected(isSelected);
+    }
+}
+@FXML
+public void handleUndo(ActionEvent event) {
+    if (!historiqueActions.isEmpty()) {
+        Action derniereAction = historiqueActions.pop(); // retire la dernière action
+        derniereAction.undo();                            // annule cette action
+        rafraichirTable();                                // met à jour la table
+        messageLabel1.setText("↩️ Action annulée !");
+        messageLabel1.setStyle("-fx-text-fill: orange;");
+    } else {
+        messageLabel1.setText("Aucune action à annuler.");
+        messageLabel1.setStyle("-fx-text-fill: gray;");
     }
 }
 
