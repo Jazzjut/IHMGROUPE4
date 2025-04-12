@@ -33,24 +33,34 @@ public class EtudiantDAO {
     }
 
     // Ajouter un étudiant
-    public void ajouterEtudiant(Etudiant e) {
-        String sql = "INSERT INTO etudiants (nom, prenom, date_naissance, parcours, promotion) VALUES (?, ?, ?, ?, ?)";
+    public Etudiant ajouterEtudiant(Etudiant e) {
+    String sql = "INSERT INTO etudiants (nom, prenom, date_naissance, parcours, promotion) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection conn = db.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    try (Connection conn = db.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            pstmt.setString(1, e.getNom());
-            pstmt.setString(2, e.getPrenom());
-            pstmt.setString(3, e.getDateDeNaissance());
-            pstmt.setString(4, e.getParcours().name());
-            pstmt.setString(5, e.getPromotion().name());
-            pstmt.executeUpdate();
-            System.out.println("Étudiant ajouté avec succès.");
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            System.out.println("ERREUR : Étudiant pas ajouté.");
+        pstmt.setString(1, e.getNom());
+        pstmt.setString(2, e.getPrenom());
+        pstmt.setString(3, e.getDateDeNaissance());
+        pstmt.setString(4, e.getParcours().name());
+        pstmt.setString(5, e.getPromotion().name());
+
+        pstmt.executeUpdate();
+
+        ResultSet rs = pstmt.getGeneratedKeys();
+        if (rs.next()) {
+            e.setId(rs.getInt(1)); // ✅ on attribue l’ID retourné par la base
+            System.out.println("✔️ Étudiant ajouté avec ID : " + e.getId());
         }
+
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        System.out.println("❌ ERREUR : Étudiant pas ajouté.");
     }
+
+    return e;
+}
+    
 
     // Modifier un étudiant
     public void modifierEtudiant(Etudiant e) {

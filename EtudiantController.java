@@ -158,10 +158,11 @@ public void handleEnregistrer(ActionEvent event) {
     // 3. Mode AJOUT
     if (etudiantCourant == null) {
         Etudiant nouvelEtudiant = new Etudiant(nom, prenom, dateNaissance.toString(), parcours, promotion);
+        
         etudiantDAO.ajouterEtudiant(nouvelEtudiant);
 
-        // 🔁 Mise à jour pile Undo
-        historiqueActions.push(new AjoutAction(etudiantDAO, nouvelEtudiant));
+       nouvelEtudiant = etudiantDAO.ajouterEtudiant(nouvelEtudiant);
+historiqueActions.push(new AjoutAction(etudiantDAO, nouvelEtudiant));
 
         messageLabel.setText("✅ Étudiant ajouté !");
         messageLabel.setStyle("-fx-text-fill: green;");

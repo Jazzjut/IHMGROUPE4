@@ -9,6 +9,7 @@ public class AjoutAction implements Action {
 
     @Override
     public void undo() {
+        System.out.println("Suppression de l'étudiant ID : " + etudiant.getId());
         dao.supprimerEtudiant(etudiant.getId());
     }
     //jkjk
