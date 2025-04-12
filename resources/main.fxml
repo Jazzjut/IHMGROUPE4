@@ -92,7 +92,7 @@
         </Menu>
       </menus>
     </MenuBar>
-      <SplitPane dividerPositions="0.5825565912117178" prefHeight="808.0" prefWidth="1089.0">
+      <SplitPane dividerPositions="0.5903193612774451" prefHeight="808.0" prefWidth="1089.0">
         <items>
           <AnchorPane prefHeight="710.0" prefWidth="548.0">
                <children>
@@ -117,8 +117,8 @@
                         <Font size="11.0" />
                      </font>
                   </Button>
-                  <Label layoutX="345.0" layoutY="253.0" text="Search" />
-                  <TextField fx:id="filtreNomField" layoutX="403.0" layoutY="249.0" prefHeight="14.0" prefWidth="152.0" promptText="Filtrer par nom/prénom" />
+                  <Label layoutX="347.0" layoutY="262.0" text="Search" />
+                  <TextField fx:id="filtreNomField" layoutX="390.0" layoutY="257.0" prefHeight="14.0" prefWidth="152.0" promptText="Filtrer par nom/prénom" />
                   <ComboBox fx:id="filtreParcoursCombo" layoutX="8.0" layoutY="257.0" prefHeight="25.0" prefWidth="81.0" promptText="Filtrer par parcours" />
                   <ComboBox fx:id="filtrePromotionCombo" layoutX="101.0" layoutY="257.0" prefHeight="25.0" prefWidth="81.0" promptText="Filtrer par promotion" />
                   <DatePicker fx:id="filtreDatePicker" layoutX="190.0" layoutY="257.0" prefHeight="25.0" prefWidth="146.0" />
@@ -135,6 +135,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <Button fx:id="btnResetFiltre" layoutX="551.0" layoutY="257.0" mnemonicParsing="false" onAction="#handleResetFiltre" prefHeight="0.0" prefWidth="0.0" text="R" />
                </children>
             </AnchorPane>
           <AnchorPane prefHeight="697.0" prefWidth="478.0">

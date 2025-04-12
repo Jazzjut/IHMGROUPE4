@@ -141,52 +141,36 @@ public class EtudiantController implements Initializable {
 
    @FXML
 public void handleEnregistrer(ActionEvent event) {
-    System.out.println("✔️ Bouton Enregistrer cliqué");
     effacerMessages();
 
-    // 1. Récupération des champs
     String nom = nomField.getText();
     String prenom = prenomField.getText();
     LocalDate dateNaissance = dateNaissancePicker.getValue();
     Etudiant.Parcours parcours = parcoursCombo.getValue();
     Etudiant.Promotion promotion = promotionCombo.getValue();
 
-    // 2. Validation
     if (nom.isEmpty() || prenom.isEmpty() || dateNaissance == null || parcours == null || promotion == null) {
-        afficherMessageTemporaire(messageLabel,"❌ Veuillez remplir tous les champs.", "red");        return;
+        afficherMessageTemporaire(messageLabel, "❌ Veuillez remplir tous les champs obligatoires.", "red");
+        return;
     }
 
-    // 3. Mode AJOUT
     if (etudiantCourant == null) {
         Etudiant nouvelEtudiant = new Etudiant(nom, prenom, dateNaissance.toString(), parcours, promotion);
-        
-
-       nouvelEtudiant = etudiantDAO.ajouterEtudiant(nouvelEtudiant);
-historiqueActions.push(new AjoutAction(etudiantDAO, nouvelEtudiant));
-
-       afficherMessageTemporaire(messageLabel, "✅ Étudiant ajouté !", "green");
-    }
-    // 4. Mode MODIFICATION
-    else {
-        Etudiant ancien = new Etudiant(etudiantCourant); // copie avant modification
-
-        // Modification en base
+        nouvelEtudiant = etudiantDAO.ajouterEtudiant(nouvelEtudiant);
+        historiqueActions.push(new AjoutAction(etudiantDAO, nouvelEtudiant));
+        afficherMessageTemporaire(messageLabel, "✅ Étudiant enregistré avec succès.", "green");
+    } else {
+        Etudiant ancien = new Etudiant(etudiantCourant);
         etudiantCourant.setNom(nom);
         etudiantCourant.setPrenom(prenom);
         etudiantCourant.setDateDeNaissance(dateNaissance.toString());
         etudiantCourant.setParcours(parcours);
         etudiantCourant.setPromotion(promotion);
-
         etudiantDAO.modifierEtudiant(etudiantCourant);
-
-        // 🔁 Historique Undo
         historiqueActions.push(new ModificationAction(etudiantDAO, ancien, etudiantCourant));
-
-        messageLabel.setText("✅ Étudiant modifié !");
-       afficherMessageTemporaire(messageLabel, "✅ Étudiant modifié !", "green");
+        afficherMessageTemporaire(messageLabel, "✅ Modifications enregistrées.", "green");
     }
 
-    // 5. Nettoyage final
     viderFormulaire();
     etudiantCourant = null;
     setFormulaireActif(false);
@@ -198,11 +182,20 @@ historiqueActions.push(new AjoutAction(etudiantDAO, nouvelEtudiant));
 @FXML
 public void handleAnnuler(ActionEvent event) {
     effacerMessages();
-    viderFormulaire();              // Vide tous les champs
-    setFormulaireActif(false);      // Grise le formulaire
-    etudiantCourant = null;         // Annule le mode modification
- 
-    afficherMessageTemporaire(messageLabel, "❌ Modification annulée.", "gray");
+
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Annulation");
+    alert.setHeaderText(null);
+    alert.setContentText("Voulez-vous vraiment annuler la modification en cours ?");
+    if (alert.showAndWait().get() != ButtonType.OK) {
+        afficherMessageTemporaire(messageLabel, "❌ Annulation interrompue.", "gray");
+        return;
+    }
+
+    viderFormulaire();
+    setFormulaireActif(false);
+    etudiantCourant = null;
+    afficherMessageTemporaire(messageLabel, "✅ Modification annulée.", "gray");
 }
 
 
@@ -249,28 +242,31 @@ public void handleAnnuler(ActionEvent event) {
         setFormulaireActif(true); // active le formulaire
     }
     
-    @FXML
+  @FXML
 public void handleSupprimer(ActionEvent event) {
     effacerMessages();
     var selectionnes = tableView.getItems().filtered(Etudiant::isSelected);
 
     if (selectionnes.isEmpty()) {
-        afficherMessageTemporaire(messageLabel, "Aucun étudiant sélectionné.", "gray");
+        afficherMessageTemporaire(messageLabel, "⚠️ Aucun étudiant sélectionné.", "gray");
         return;
     }
 
-    // 🔁 Ajouter à l'historique pour Undo
-    historiqueActions.push(new SuppressionMultipleAction(etudiantDAO, new ArrayList<>(selectionnes)));
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Confirmation de suppression");
+    alert.setHeaderText(null);
+    alert.setContentText("Êtes-vous sûr de vouloir supprimer les étudiants sélectionnés ?");
+    if (alert.showAndWait().get() != ButtonType.OK) {
+        afficherMessageTemporaire(messageLabel, "❌ Suppression annulée.", "gray");
+        return;
+    }
 
-    // Suppression réelle
+    historiqueActions.push(new SuppressionMultipleAction(etudiantDAO, new ArrayList<>(selectionnes)));
     for (Etudiant e : selectionnes) {
         etudiantDAO.supprimerEtudiant(e.getId());
     }
 
-    // Feedback
-    afficherMessageTemporaire(messageLabel1, "Étudiants supprimés !", "green");
-
-    // Ces lignes DOIVENT être exécutées après suppression
+    afficherMessageTemporaire(messageLabel1, "✅ Étudiants supprimés avec succès.", "green");
     selectAllCheckBox.setSelected(false);
     rafraichirTable();
     viderFormulaire();
@@ -384,9 +380,25 @@ private void afficherMessageTemporaire(Label label, String message, String color
     PauseTransition pause = new PauseTransition(Duration.seconds(3));
     pause.setOnFinished(e -> label.setVisible(false));
     pause.play();
+    
+}
+@FXML
+public void handleResetFiltre(ActionEvent event) {
+    effacerMessages();
+
+    filtreNomField.clear();
+    filtreParcoursCombo.getSelectionModel().clearSelection();
+    filtrePromotionCombo.getSelectionModel().clearSelection();
+    filtreDatePicker.setValue(null);
+
+    // Cela forcera la mise à jour du filtre (Predicate)
+    updateFilter();
+
+    afficherMessageTemporaire(messageLabel, "🔄 Filtres réinitialisés.", "blue");
 }
 private void effacerMessages() {
     messageLabel.setVisible(false);
     messageLabel1.setVisible(false);
+    
 }
 }
