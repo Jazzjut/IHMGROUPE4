@@ -105,6 +105,8 @@ public class EtudiantController implements Initializable {
         filtreParcoursCombo.valueProperty().addListener((obs, oldVal, newVal) -> updateFilter());
         filtrePromotionCombo.valueProperty().addListener((obs, oldVal, newVal) -> updateFilter());
     
+        
+      
 
         //System.out.println("Table chargée avec " + tableView.getItems().size() + " étudiants.");
         setFormulaireActif(false); // désactive le formulaire au lancement
