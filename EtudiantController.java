@@ -64,7 +64,7 @@ public class EtudiantController implements Initializable {
     @FXML private TextField filtreNomField;
     @FXML private ComboBox<Etudiant.Parcours> filtreParcoursCombo;
     @FXML private ComboBox<Etudiant.Promotion> filtrePromotionCombo;
-    @FXML private ScrollPane ScrollPane;
+
     private ObservableList<Etudiant> etudiantData;
     private FilteredList<Etudiant> filteredData;
 

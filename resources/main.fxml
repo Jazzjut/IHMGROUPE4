@@ -32,6 +32,7 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
@@ -40,7 +41,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -137,7 +137,6 @@
                      </graphic>
                   </Button>
                   <Button fx:id="btnResetFiltre" layoutX="551.0" layoutY="257.0" mnemonicParsing="false" onAction="#handleResetFiltre" prefHeight="0.0" prefWidth="0.0" text="R" />
-                  <ScrollBar layoutX="580.0" orientation="VERTICAL" prefHeight="759.0" prefWidth="16.0" />
                </children>
             </AnchorPane>
           <AnchorPane fx:id="ScrollPane" prefHeight="697.0" prefWidth="478.0">
@@ -161,6 +160,9 @@
                   <Label fx:id="parcoursErrorLabel" layoutX="117.0" layoutY="432.0" prefHeight="17.0" prefWidth="223.0" />
                   <Label fx:id="promotionErrorLabel" layoutX="115.0" layoutY="500.0" prefHeight="17.0" prefWidth="227.0" />
                </children>
+               <cursor>
+                  <Cursor fx:constant="S_RESIZE" />
+               </cursor>
             </AnchorPane>
         </items>
       </SplitPane>
