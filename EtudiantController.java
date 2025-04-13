@@ -34,6 +34,11 @@ public class EtudiantController implements Initializable {
     @FXML private Label messageLabel1;
     @FXML private Button btnSupprimer;
     
+    @FXML private Label nomErrorLabel;
+@FXML private Label prenomErrorLabel;
+@FXML private Label dateErrorLabel;
+@FXML private Label parcoursErrorLabel;
+@FXML private Label promotionErrorLabel;
     // Pagination
     @FXML private Button btnPrecedent;
     @FXML private Button btnSuivant;
@@ -148,6 +153,7 @@ public class EtudiantController implements Initializable {
    @FXML
 public void handleEnregistrer(ActionEvent event) {
     effacerMessages();
+     if (!validerChamps()) return;
 
     String nom = nomField.getText();
     String prenom = prenomField.getText();
@@ -177,17 +183,7 @@ public void handleEnregistrer(ActionEvent event) {
         afficherMessageTemporaire(messageLabel, "✅ Modifications enregistrées.", "green");
     }
     
-    if (dateNaissance.isAfter(LocalDate.now())) {
-    afficherMessageTemporaire(messageLabel, "❌ La date de naissance ne peut pas être dans le futur.", "red");
-    return;
-}
-
-int age = LocalDate.now().getYear() - dateNaissance.getYear();
-if (age < 16) {
-    afficherMessageTemporaire(messageLabel, "❌ L'étudiant doit avoir au moins 16 ans.", "red");
-    return;
-}
-
+   
     viderFormulaire();
     etudiantCourant = null;
     setFormulaireActif(false);
@@ -441,5 +437,60 @@ private List<Etudiant> getPageFromList(List<Etudiant> list, int page, int pageSi
     int fromIndex = Math.min((page - 1) * pageSize, list.size());
     int toIndex = Math.min(fromIndex + pageSize, list.size());
     return list.subList(fromIndex, toIndex);
+}
+private boolean validerChamps() {
+    boolean valide = true;
+
+    nomErrorLabel.setVisible(false);
+    prenomErrorLabel.setVisible(false);
+    dateErrorLabel.setVisible(false);
+    parcoursErrorLabel.setVisible(false);
+    promotionErrorLabel.setVisible(false);
+
+    String nom = nomField.getText().trim();
+    String prenom = prenomField.getText().trim();
+    LocalDate dateNaissance = dateNaissancePicker.getValue();
+    Etudiant.Parcours parcours = parcoursCombo.getValue();
+    Etudiant.Promotion promotion = promotionCombo.getValue();
+
+    if (!nom.matches("[a-zA-ZÀ-ÿ\\s\\-']{2,}")) {
+        nomErrorLabel.setText("❌ Le nom doit contenir uniquement des lettres.");
+        nomErrorLabel.setVisible(true);
+        valide = false;
+    }
+
+    if (!prenom.matches("[a-zA-ZÀ-ÿ\\s\\-']{2,}")) {
+        prenomErrorLabel.setText("❌ Le prénom doit contenir uniquement des lettres.");
+        prenomErrorLabel.setVisible(true);
+        valide = false;
+    }
+
+    if (dateNaissance == null) {
+        dateErrorLabel.setText("❌ La date de naissance est obligatoire.");
+        dateErrorLabel.setVisible(true);
+        valide = false;
+    } else if (dateNaissance.isAfter(LocalDate.now())) {
+        dateErrorLabel.setText("❌ La date ne peut pas être dans le futur.");
+        dateErrorLabel.setVisible(true);
+        valide = false;
+    } else if (LocalDate.now().getYear() - dateNaissance.getYear() < 16) {
+        dateErrorLabel.setText("❌ L'étudiant doit avoir au moins 16 ans.");
+        dateErrorLabel.setVisible(true);
+        valide = false;
+    }
+
+    if (parcours == null) {
+        parcoursErrorLabel.setText("❌ Le parcours est requis.");
+        parcoursErrorLabel.setVisible(true);
+        valide = false;
+    }
+
+    if (promotion == null) {
+        promotionErrorLabel.setText("❌ La promotion est requise.");
+        promotionErrorLabel.setVisible(true);
+        valide = false;
+    }
+
+    return valide;
 }
 }

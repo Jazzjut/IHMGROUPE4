@@ -153,6 +153,11 @@
                   <Button fx:id="enregistrerButton" layoutX="169.0" layoutY="575.0" mnemonicParsing="false" onAction="#handleEnregistrer" text="Enregistrer" />
                   <Button fx:id="annulerButton" layoutX="60.0" layoutY="575.0" mnemonicParsing="false" onAction="#handleAnnuler" text="Annuler" />
                   <Label fx:id="messageLabel" layoutX="192.0" layoutY="610.0" />
+                  <Label fx:id="nomErrorLabel" layoutX="108.0" layoutY="207.0" prefHeight="15.0" prefWidth="217.0" />
+                  <Label fx:id="prenomErrorLabel" layoutX="112.0" layoutY="298.0" prefHeight="17.0" prefWidth="195.0" />
+                  <Label fx:id="dateErrorLabel" layoutX="114.0" layoutY="372.0" prefHeight="17.0" prefWidth="186.0" />
+                  <Label fx:id="parcoursErrorLabel" layoutX="117.0" layoutY="432.0" prefHeight="17.0" prefWidth="223.0" />
+                  <Label fx:id="promotionErrorLabel" layoutX="115.0" layoutY="500.0" prefHeight="17.0" prefWidth="227.0" />
                </children>
             </AnchorPane>
         </items>
