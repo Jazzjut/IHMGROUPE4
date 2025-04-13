@@ -16,6 +16,7 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import java.util.Stack;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
+import java.util.Comparator;
 
 
 public class EtudiantController implements Initializable {
@@ -93,7 +94,8 @@ public class EtudiantController implements Initializable {
         
         etudiantData = FXCollections.observableArrayList(etudiantDAO.getAllEtudiants());
         filteredData = new FilteredList<>(etudiantData, e -> true);
-        tableView.setItems(filteredData);
+       
+        
         filtreDatePicker.valueProperty().addListener((obs, oldVal, newVal) -> updateFilter());
         //ObservableList<Etudiant> data = FXCollections.observableArrayList(etudiantDAO.getAllEtudiants());
         //filteredData = new FilteredList<>(data, e -> true);
@@ -107,7 +109,7 @@ public class EtudiantController implements Initializable {
         filtreParcoursCombo.valueProperty().addListener((obs, oldVal, newVal) -> updateFilter());
         filtrePromotionCombo.valueProperty().addListener((obs, oldVal, newVal) -> updateFilter());
     
-        
+        tableView.setItems(filteredData);
       
 
         //System.out.println("Table chargée avec " + tableView.getItems().size() + " étudiants.");
@@ -135,6 +137,10 @@ public class EtudiantController implements Initializable {
 
         return nomMatch && parcoursMatch && promotionMatch && dateMatch;
     });
+
+    // ✅ MAJ directe de la table après filtre
+    currentPage = 1; // Remettre à la première page pour éviter des erreurs de pagination
+    rafraichirTable();
 }
 
        
@@ -170,6 +176,17 @@ public void handleEnregistrer(ActionEvent event) {
         historiqueActions.push(new ModificationAction(etudiantDAO, ancien, etudiantCourant));
         afficherMessageTemporaire(messageLabel, "✅ Modifications enregistrées.", "green");
     }
+    
+    if (dateNaissance.isAfter(LocalDate.now())) {
+    afficherMessageTemporaire(messageLabel, "❌ La date de naissance ne peut pas être dans le futur.", "red");
+    return;
+}
+
+int age = LocalDate.now().getYear() - dateNaissance.getYear();
+if (age < 16) {
+    afficherMessageTemporaire(messageLabel, "❌ L'étudiant doit avoir au moins 16 ans.", "red");
+    return;
+}
 
     viderFormulaire();
     etudiantCourant = null;
@@ -296,31 +313,42 @@ private void ajouterBoutonModifier() {
     });
 }
 private void rafraichirTable() {
-    // System.out.println(">>> rafraichirTable() APPELÉ !");
-    // System.out.println("Début de rafraichirTable()");
-    // ObservableList<Etudiant> nouvelleListe = FXCollections.observableArrayList(etudiantDAO.getAllEtudiants());
-    // System.out.println("?Liste récupérée : " + nouvelleListe.size() + " étudiants");
+    // Récupérer tous les étudiants depuis la base
+    List<Etudiant> all = etudiantDAO.getAllEtudiants();
 
-    // etudiantData.clear();
-    // etudiantData.addAll(nouvelleListe);
-    // tableView.refresh();
-    // System.out.println("Table rafraîchie !");
-    
-    System.out.println(">>> rafraichirTable() APPELÉ !");
-    
-    // 🔁 Met à jour le total
-    totalEtudiants = etudiantDAO.getNombreTotalEtudiants();
+    // Appliquer les filtres manuellement
+    List<Etudiant> filtres = all.stream()
+        .filter(e -> {
+            String filtreTexte = filtreNomField.getText().toLowerCase().trim();
+            Etudiant.Parcours parcoursFiltre = filtreParcoursCombo.getValue();
+            Etudiant.Promotion promotionFiltre = filtrePromotionCombo.getValue();
+            LocalDate dateFiltre = filtreDatePicker.getValue();
 
-    // 🔁 Recharge la page actuelle
-    // Si on est à la page 4 mais qu’il ne reste plus que 3 pages après suppression, on recule d’une page
-    int maxPages = (int) Math.ceil((double) totalEtudiants / pageSize);
-    if (currentPage > maxPages && maxPages > 0) {
-        currentPage = maxPages;
-    } else if (maxPages == 0) {
-        currentPage = 1;
-    }
+            boolean nomMatch = e.getNom().toLowerCase().contains(filtreTexte)
+                            || e.getPrenom().toLowerCase().contains(filtreTexte);
+            boolean parcoursMatch = (parcoursFiltre == null || e.getParcours() == parcoursFiltre);
+            boolean promotionMatch = (promotionFiltre == null || e.getPromotion() == promotionFiltre);
+            boolean dateMatch = (dateFiltre == null || LocalDate.parse(e.getDateDeNaissance()).isEqual(dateFiltre));
 
-    chargerPage(currentPage);
+            return nomMatch && parcoursMatch && promotionMatch && dateMatch;
+        })
+        .sorted(
+            Comparator.comparing(Etudiant::getNom)
+                      .thenComparing(Etudiant::getPrenom)
+        )
+        .toList();
+
+    // Pagination
+    totalEtudiants = filtres.size();
+    int maxPages = Math.max(1, (int) Math.ceil((double) totalEtudiants / pageSize));
+    if (currentPage > maxPages) currentPage = maxPages;
+
+    List<Etudiant> page = getPageFromList(filtres, currentPage, pageSize);
+    etudiantData.setAll(page);
+    tableView.setItems(etudiantData);
+
+    pageLabel.setText("Page " + currentPage + " / " + maxPages);
+    updatePaginationButtons();
 }
     // Méthode pour charger une page spécifique 
     private void chargerPage(int page) {
@@ -339,15 +367,15 @@ private void rafraichirTable() {
 @FXML
 public void handlePrecedent(ActionEvent event) {
     if (currentPage > 1) {
-        chargerPage(currentPage - 1);
+        currentPage--;
+        rafraichirTable();
     }
 }
 
 @FXML
 public void handleSuivant(ActionEvent event) {
-    if ((currentPage * pageSize) < totalEtudiants) {
-        chargerPage(currentPage + 1);
-    }
+    currentPage++;
+    rafraichirTable();
 }
 
 @FXML
@@ -400,5 +428,18 @@ private void effacerMessages() {
     messageLabel.setVisible(false);
     messageLabel1.setVisible(false);
     
+}
+
+private boolean isFiltrageActif() {
+    return !filtreNomField.getText().trim().isEmpty()
+        || filtreParcoursCombo.getValue() != null
+        || filtrePromotionCombo.getValue() != null
+        || filtreDatePicker.getValue() != null;
+}
+
+private List<Etudiant> getPageFromList(List<Etudiant> list, int page, int pageSize) {
+    int fromIndex = Math.min((page - 1) * pageSize, list.size());
+    int toIndex = Math.min(fromIndex + pageSize, list.size());
+    return list.subList(fromIndex, toIndex);
 }
 }

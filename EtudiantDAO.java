@@ -144,5 +144,23 @@ public int getNombreTotalEtudiants() {
         e.printStackTrace();
     }
     return 0;
+    
+}
+public void reajouterEtudiantAvecID(Etudiant e) {
+    String sql = "INSERT INTO etudiants (id, nom, prenom, date_naissance, parcours, promotion) VALUES (?, ?, ?, ?, ?, ?)";
+    try (Connection conn = db.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setInt(1, e.getId());
+        pstmt.setString(2, e.getNom());
+        pstmt.setString(3, e.getPrenom());
+        pstmt.setString(4, e.getDateDeNaissance());
+        pstmt.setString(5, e.getParcours().name());
+        pstmt.setString(6, e.getPromotion().name());
+        pstmt.executeUpdate();
+        System.out.println("✔️ Étudiant réajouté avec ID : " + e.getId());
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        System.out.println("❌ Erreur lors de la réinsertion avec ID.");
+    }
 }
 }
