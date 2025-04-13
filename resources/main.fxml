@@ -40,6 +40,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -136,9 +137,10 @@
                      </graphic>
                   </Button>
                   <Button fx:id="btnResetFiltre" layoutX="551.0" layoutY="257.0" mnemonicParsing="false" onAction="#handleResetFiltre" prefHeight="0.0" prefWidth="0.0" text="R" />
+                  <ScrollBar layoutX="580.0" orientation="VERTICAL" prefHeight="759.0" prefWidth="16.0" />
                </children>
             </AnchorPane>
-          <AnchorPane prefHeight="697.0" prefWidth="478.0">
+          <AnchorPane fx:id="ScrollPane" prefHeight="697.0" prefWidth="478.0">
                <children>
                   <Label layoutX="34.0" layoutY="172.0" text="Nom" />
                   <TextField fx:id="nomField" layoutX="105.0" layoutY="176.0" prefHeight="25.0" prefWidth="146.0" />
