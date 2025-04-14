@@ -18,6 +18,14 @@ public class MainApp extends Application {
             }
         Parent root = FXMLLoader.load(fxmlurl);
         Scene scene = new Scene(root);
+        // ✅ Ajout du fichier CSS (style.css dans resources/css/)
+        URL cssURL = getClass().getResource("/css/style.css");
+        if (cssURL != null) {
+            scene.getStylesheets().add(cssURL.toExternalForm());
+            System.out.println("✅ CSS appliqué : " + cssURL);
+        } else {
+            System.out.println("❌ CSS non trouvé !");
+        }
         stage.setTitle("Bienvenue - Application de Gestion des Étudiants");
         stage.setScene(scene);
         stage.show();
