@@ -15,6 +15,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="687.0" prefWidth="1263.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EtudiantController">
@@ -35,41 +36,41 @@
       </MenuBar>
    </top>
    <center>
-      <SplitPane dividerPositions="0.5" prefHeight="1019.0" prefWidth="1869.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.5967741935483871" prefHeight="1019.0" prefWidth="1869.0" BorderPane.alignment="CENTER">
          <items>
             <AnchorPane prefHeight="766.0" prefWidth="530.0">
                <children>
                   <TableView fx:id="tableView" layoutX="2.0" layoutY="161.33333333333334" prefHeight="328.0" prefWidth="625.0" AnchorPane.bottomAnchor="170.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="161.0">
                      <columns>
-                        <TableColumn fx:id="selectCol" minWidth="20.0" prefWidth="30.0">
+                        <TableColumn fx:id="selectCol" minWidth="20.0" prefWidth="47.33334517478943">
                            <graphic>
                               <CheckBox fx:id="selectAllCheckBox" mnemonicParsing="false" onAction="#handleSelectAll" />
                            </graphic>
                         </TableColumn>
-                        <TableColumn fx:id="idTC" minWidth="9.999969482421875" prefWidth="30.666656494140625" text="id" />
-                        <TableColumn fx:id="nomTC" prefWidth="89.33338928222656" text="Nom" />
-                        <TableColumn fx:id="prenomTC" prefWidth="78.66668701171875" text="Prénom " />
-                        <TableColumn fx:id="ddnTC" prefWidth="114.66659545898438" text="Date de naissance" />
-                        <TableColumn fx:id="parcoursTC" prefWidth="77.3333740234375" text="Parcours" />
-                        <TableColumn fx:id="promotionTC" prefWidth="69.3333740234375" text="Promotion" />
-                        <TableColumn fx:id="modifierTC" maxWidth="1.7976931348623157E308" minWidth="20.0" prefWidth="54.5" text="Modifier" />
+                        <TableColumn fx:id="idTC" minWidth="9.999969482421875" prefWidth="46.666656494140625" text="id" />
+                        <TableColumn fx:id="nomTC" prefWidth="87.33331298828125" text="Nom" />
+                        <TableColumn fx:id="prenomTC" prefWidth="97.33334350585938" text="Prénom " />
+                        <TableColumn fx:id="ddnTC" prefWidth="145.33331298828125" text="Date de naissance" />
+                        <TableColumn fx:id="parcoursTC" prefWidth="106.0" text="Parcours" />
+                        <TableColumn fx:id="promotionTC" minWidth="0.0" prefWidth="102.6666259765625" text="Promotion" />
+                        <TableColumn fx:id="modifierTC" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="107.3333740234375" text="Modifier" />
                      </columns>
                   </TableView>
-                  <Button fx:id="btnAjouter" layoutX="329.0" layoutY="64.0" minWidth="37.0" mnemonicParsing="false" onAction="#handleAjouter" prefHeight="35.0" prefWidth="200.0" text="Ajouter un étudiant">
+                  <Button fx:id="btnAjouter" layoutX="433.0" layoutY="56.0" minWidth="37.0" mnemonicParsing="false" onAction="#handleAjouter" prefHeight="35.0" prefWidth="200.0" text="Ajouter un étudiant">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnSupprimer" layoutX="52.0" layoutY="64.0" mnemonicParsing="false" onAction="#handleSupprimer" prefHeight="35.0" prefWidth="206.0" text="Supprimer un étudiant">
+                  <Button fx:id="btnSupprimer" layoutX="147.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleSupprimer" prefHeight="35.0" prefWidth="206.0" text="Supprimer un étudiant">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Label layoutX="346.0" layoutY="122.0" text="Search" />
-                  <TextField fx:id="filtreNomField" layoutX="390.0" layoutY="118.0" prefHeight="14.0" prefWidth="152.0" promptText="Filtrer par nom/prénom" />
-                  <ComboBox fx:id="filtreParcoursCombo" layoutX="8.0" layoutY="118.0" prefHeight="26.0" prefWidth="88.0" promptText="Filtrer par parcours" />
-                  <ComboBox fx:id="filtrePromotionCombo" layoutX="103.0" layoutY="118.0" prefHeight="25.0" prefWidth="81.0" promptText="Filtrer par promotion" />
-                  <DatePicker fx:id="filtreDatePicker" layoutX="192.0" layoutY="118.0" prefHeight="25.0" prefWidth="146.0" />
+                  <Label layoutX="457.0" layoutY="122.0" text="Search" />
+                  <TextField fx:id="filtreNomField" layoutX="501.0" layoutY="118.0" prefHeight="14.0" prefWidth="152.0" promptText="Filtrer par nom/prénom" />
+                  <ComboBox fx:id="filtreParcoursCombo" layoutX="8.0" layoutY="118.0" prefHeight="26.0" prefWidth="160.0" promptText="Filtrer par parcours" />
+                  <ComboBox fx:id="filtrePromotionCombo" layoutX="176.0" layoutY="118.0" prefHeight="25.0" prefWidth="157.0" promptText="Filtrer par promotion" />
+                  <DatePicker fx:id="filtreDatePicker" layoutX="341.0" layoutY="118.0" prefHeight="25.0" prefWidth="107.0" />
                   <Label fx:id="messageLabel1" layoutX="442.0" layoutY="154.0" />
                   <Button fx:id="btnSuivant" layoutX="501.0" layoutY="510.0" mnemonicParsing="false" onAction="#handleSuivant" text="Suivant">
                      <font>
@@ -83,57 +84,65 @@
                   </Button>
                   <Label fx:id="pageLabel" layoutX="297.0" layoutY="521.0" text="Page 1" />
                   <Button fx:id="btnUndo" layoutX="8.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleUndo" prefHeight="30.0" prefWidth="139.0" text="Undo" />
-                  <Button fx:id="btnResetFiltre" layoutX="552.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleResetFiltre" prefHeight="26.0" prefWidth="50.0" text="R" />
+                  <Button fx:id="btnResetFiltre" layoutX="665.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleResetFiltre" prefHeight="26.0" prefWidth="77.0" text="Refresh" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="766.0" prefWidth="387.0">
                <children>
-                  <Label layoutX="18.0" layoutY="146.0" prefHeight="26.0" prefWidth="69.0" text="Nom *" textFill="#252323">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="nomField" layoutX="33.0" layoutY="175.0" prefHeight="26.0" prefWidth="292.0" />
-                  <Label layoutX="16.0" layoutY="229.0" text="Prénom *">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="prenomField" layoutX="33.0" layoutY="258.0" prefHeight="26.0" prefWidth="292.0" />
-                  <Label layoutX="16.0" layoutY="309.0" prefHeight="22.0" prefWidth="145.0" text="Date de Naissance *">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                  </Label>
-                  <DatePicker fx:id="dateNaissancePicker" layoutX="33.0" layoutY="338.0" prefHeight="26.0" prefWidth="292.0" />
-                  <Label layoutX="16.0" layoutY="392.0" text="Parcours *">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <ComboBox fx:id="parcoursCombo" layoutX="33.0" layoutY="421.0" prefHeight="27.0" prefWidth="292.0" />
-                  <Label layoutX="16.0" layoutY="475.0" text="Promotion *">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <ComboBox fx:id="promotionCombo" layoutX="33.0" layoutY="504.0" prefHeight="27.0" prefWidth="292.0" />
-                  <Button fx:id="enregistrerButton" layoutX="219.0" layoutY="598.0" mnemonicParsing="false" onAction="#handleEnregistrer" text="Soumettre">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="annulerButton" layoutX="39.0" layoutY="598.0" mnemonicParsing="false" onAction="#handleAnnuler" text="Annuler">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Button>
-                  <Label fx:id="messageLabel" layoutX="192.0" layoutY="610.0" />
-                  <Label fx:id="nomErrorLabel" layoutX="32.0" layoutY="199.0" prefHeight="17.0" prefWidth="275.0" />
-                  <Label fx:id="prenomErrorLabel" layoutX="36.0" layoutY="283.0" prefHeight="17.0" prefWidth="317.0" />
-                  <Label fx:id="dateErrorLabel" layoutX="37.0" layoutY="362.0" prefHeight="17.0" prefWidth="277.0" />
-                  <Label fx:id="parcoursErrorLabel" layoutX="10.0" layoutY="442.0" prefHeight="17.0" prefWidth="223.0" />
-                  <Label fx:id="promotionErrorLabel" layoutX="24.0" layoutY="450.0" prefHeight="17.0" prefWidth="283.0" />
+                  <BorderPane prefHeight="658.0" prefWidth="507.0">
+                     <center>
+                        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label layoutX="61.0" layoutY="121.0" prefHeight="26.0" prefWidth="69.0" text="Nom *" textFill="#252323">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="nomField" layoutX="183.0" layoutY="122.0" prefHeight="26.0" prefWidth="292.0" />
+                              <Label layoutX="51.0" layoutY="190.0" text="Prénom *">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="prenomField" layoutX="183.0" layoutY="191.0" prefHeight="26.0" prefWidth="292.0" />
+                              <Label layoutX="17.0" layoutY="257.0" prefHeight="26.0" prefWidth="175.0" text="Date de Naissance *">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="dateNaissancePicker" layoutX="183.0" layoutY="257.0" prefHeight="26.0" prefWidth="292.0" />
+                              <Label layoutX="48.0" layoutY="317.0" text="Parcours *">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="parcoursCombo" layoutX="183.0" layoutY="317.0" prefHeight="27.0" prefWidth="292.0" />
+                              <Label layoutX="40.0" layoutY="384.0" text="Promotion *">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="promotionCombo" layoutX="181.0" layoutY="384.0" prefHeight="27.0" prefWidth="292.0" />
+                              <Button fx:id="enregistrerButton" layoutX="299.0" layoutY="504.0" mnemonicParsing="false" onAction="#handleEnregistrer" prefHeight="45.0" prefWidth="120.0" text="Soumettre">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="annulerButton" layoutX="125.0" layoutY="504.0" mnemonicParsing="false" onAction="#handleAnnuler" prefHeight="45.0" prefWidth="120.0" text="Annuler">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <Label fx:id="messageLabel" layoutX="114.0" layoutY="607.0" prefHeight="17.0" prefWidth="309.0" />
+                              <Label fx:id="nomErrorLabel" layoutX="190.0" layoutY="155.0" prefHeight="17.0" prefWidth="275.0" />
+                              <Label fx:id="prenomErrorLabel" layoutX="183.0" layoutY="225.0" prefHeight="17.0" prefWidth="294.0" />
+                              <Label fx:id="dateErrorLabel" layoutX="181.0" layoutY="287.0" prefHeight="17.0" prefWidth="296.0" />
+                              <Label fx:id="parcoursErrorLabel" layoutX="181.0" layoutY="353.0" prefHeight="17.0" prefWidth="293.0" />
+                              <Label fx:id="promotionErrorLabel" layoutX="181.0" layoutY="425.0" prefHeight="17.0" prefWidth="283.0" />
+                           </children>
+                        </Pane>
+                     </center>
+                  </BorderPane>
                </children>
                <cursor>
                   <Cursor fx:constant="S_RESIZE" />
