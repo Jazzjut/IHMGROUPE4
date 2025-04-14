@@ -510,6 +510,9 @@ public void handleRetourAccueil(ActionEvent event) {
         e.printStackTrace();
     }
 }
-
+@FXML
+public void handleQuitterApplication(ActionEvent event) {
+    System.exit(0); // Ferme proprement l'application JavaFX
+}
 
 }
