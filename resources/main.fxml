@@ -28,7 +28,7 @@
             <Menu fx:id="menuRetourAccueil" mnemonicParsing="false" onAction="#handleRetourAccueil" text="Menu">
                <items>
                   <MenuItem mnemonicParsing="false" text="Accueil" />
-                  <MenuItem mnemonicParsing="false" text="Besoin d'aide" />
+                  <MenuItem fx:id="aide" mnemonicParsing="false" onAction="#handleAide" text="Besoin d'aide" />
                   <MenuItem fx:id="menuquitter" mnemonicParsing="false" onAction="#handleQuitterApplication" text="Quitter" />
                </items>
             </Menu>
