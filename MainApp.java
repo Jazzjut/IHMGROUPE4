@@ -11,14 +11,14 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        URL fxmlurl = (getClass().getResource("/resources/main.fxml"));
+        URL fxmlurl = (getClass().getResource("/resources/welcome.fxml"));
             if (fxmlurl == null) {
             System.out.println("ERREUR : fichier introuvable fxml");
             return;
             }
         Parent root = FXMLLoader.load(fxmlurl);
         Scene scene = new Scene(root);
-        stage.setTitle("Gestion des Étudiants");
+        stage.setTitle("Bienvenue - Application de Gestion des Étudiants");
         stage.setScene(scene);
         stage.show();
         
