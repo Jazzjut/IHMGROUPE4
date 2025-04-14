@@ -17,17 +17,23 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="687.0" prefWidth="1263.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EtudiantController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
          <menus>
-            <Menu mnemonicParsing="false" text="Besoin d'aide">
+            <Menu mnemonicParsing="false" text="Accueil">
                <items>
                   <MenuItem mnemonicParsing="false" text="About" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Quitter l'application">
+            <Menu mnemonicParsing="false" text="Besoin d'aide">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Quitter">
                <items>
                   <MenuItem mnemonicParsing="false" text="Action 1" />
                </items>
@@ -72,17 +78,20 @@
                   <ComboBox fx:id="filtrePromotionCombo" layoutX="176.0" layoutY="118.0" prefHeight="25.0" prefWidth="157.0" promptText="Filtrer par promotion" />
                   <DatePicker fx:id="filtreDatePicker" layoutX="341.0" layoutY="118.0" prefHeight="25.0" prefWidth="107.0" />
                   <Label fx:id="messageLabel1" layoutX="442.0" layoutY="154.0" />
-                  <Button fx:id="btnSuivant" layoutX="501.0" layoutY="510.0" mnemonicParsing="false" onAction="#handleSuivant" text="Suivant">
+                  <Button fx:id="btnSuivant" layoutX="466.0" layoutY="507.0" mnemonicParsing="false" onAction="#handleSuivant" prefHeight="35.0" prefWidth="85.0" text="Suivant">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnPrecedent" layoutX="17.0" layoutY="510.0" mnemonicParsing="false" onAction="#handlePrecedent" text="Précédent">
+                  <Button fx:id="btnPrecedent" layoutX="171.0" layoutY="507.0" mnemonicParsing="false" onAction="#handlePrecedent" text="Précédent">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Label fx:id="pageLabel" layoutX="297.0" layoutY="521.0" text="Page 1" />
+                  <Label fx:id="pageLabel" layoutX="343.0" layoutY="514.0" prefHeight="26.0" prefWidth="56.0" text="Page 1">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
                   <Button fx:id="btnUndo" layoutX="8.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleUndo" prefHeight="30.0" prefWidth="139.0" text="Undo" />
                   <Button fx:id="btnResetFiltre" layoutX="665.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleResetFiltre" prefHeight="26.0" prefWidth="77.0" text="Refresh" />
                </children>
@@ -93,36 +102,36 @@
                      <center>
                         <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Label layoutX="61.0" layoutY="121.0" prefHeight="26.0" prefWidth="69.0" text="Nom *" textFill="#252323">
+                              <Label layoutX="59.0" layoutY="88.0" prefHeight="26.0" prefWidth="69.0" text="Nom *" textFill="#252323">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="nomField" layoutX="183.0" layoutY="122.0" prefHeight="26.0" prefWidth="292.0" />
-                              <Label layoutX="51.0" layoutY="190.0" text="Prénom *">
+                              <TextField fx:id="nomField" layoutX="68.0" layoutY="119.0" prefHeight="31.0" prefWidth="350.0" />
+                              <Label layoutX="59.0" layoutY="161.0" text="Prénom *">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="prenomField" layoutX="183.0" layoutY="191.0" prefHeight="26.0" prefWidth="292.0" />
-                              <Label layoutX="17.0" layoutY="257.0" prefHeight="26.0" prefWidth="175.0" text="Date de Naissance *">
+                              <TextField fx:id="prenomField" layoutX="67.0" layoutY="191.0" prefHeight="31.0" prefWidth="350.0" />
+                              <Label layoutX="59.0" layoutY="229.0" prefHeight="26.0" prefWidth="175.0" text="Date de Naissance *">
                                  <font>
                                     <Font size="17.0" />
                                  </font>
                               </Label>
-                              <DatePicker fx:id="dateNaissancePicker" layoutX="183.0" layoutY="257.0" prefHeight="26.0" prefWidth="292.0" />
-                              <Label layoutX="48.0" layoutY="317.0" text="Parcours *">
+                              <DatePicker fx:id="dateNaissancePicker" layoutX="68.0" layoutY="256.0" prefHeight="33.0" prefWidth="350.0" />
+                              <Label layoutX="63.0" layoutY="297.0" text="Parcours *">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="parcoursCombo" layoutX="183.0" layoutY="317.0" prefHeight="27.0" prefWidth="292.0" />
-                              <Label layoutX="40.0" layoutY="384.0" text="Promotion *">
+                              <ComboBox fx:id="parcoursCombo" layoutX="68.0" layoutY="321.0" prefHeight="28.0" prefWidth="350.0" />
+                              <Label layoutX="56.0" layoutY="358.0" text="Promotion *">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="promotionCombo" layoutX="181.0" layoutY="384.0" prefHeight="27.0" prefWidth="292.0" />
+                              <ComboBox fx:id="promotionCombo" layoutX="69.0" layoutY="405.0" prefHeight="28.0" prefWidth="350.0" />
                               <Button fx:id="enregistrerButton" layoutX="299.0" layoutY="504.0" mnemonicParsing="false" onAction="#handleEnregistrer" prefHeight="45.0" prefWidth="120.0" text="Soumettre">
                                  <font>
                                     <Font size="18.0" />
@@ -134,11 +143,16 @@
                                  </font>
                               </Button>
                               <Label fx:id="messageLabel" layoutX="114.0" layoutY="607.0" prefHeight="17.0" prefWidth="309.0" />
-                              <Label fx:id="nomErrorLabel" layoutX="190.0" layoutY="155.0" prefHeight="17.0" prefWidth="275.0" />
+                              <Label fx:id="nomErrorLabel" layoutX="184.0" layoutY="84.0" prefHeight="17.0" prefWidth="275.0" />
                               <Label fx:id="prenomErrorLabel" layoutX="183.0" layoutY="225.0" prefHeight="17.0" prefWidth="294.0" />
                               <Label fx:id="dateErrorLabel" layoutX="181.0" layoutY="287.0" prefHeight="17.0" prefWidth="296.0" />
                               <Label fx:id="parcoursErrorLabel" layoutX="181.0" layoutY="353.0" prefHeight="17.0" prefWidth="293.0" />
                               <Label fx:id="promotionErrorLabel" layoutX="181.0" layoutY="425.0" prefHeight="17.0" prefWidth="283.0" />
+                              <Text layoutX="170.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FORMULAIRE" wrappingWidth="207.0169677734375">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                              </Text>
                            </children>
                         </Pane>
                      </center>
