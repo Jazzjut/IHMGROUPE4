@@ -17,6 +17,10 @@ import java.util.Stack;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 import java.util.Comparator;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 
 public class EtudiantController implements Initializable {
@@ -492,4 +496,20 @@ private boolean validerChamps() {
 
     return valide;
 }
+@FXML
+public void handleRetourAccueil(ActionEvent event) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/welcome.fxml"));
+        Parent root = loader.load();
+
+        // Récupère la scène à partir d’un élément de l’interface
+        Stage stage = (Stage) tableView.getScene().getWindow();  // ou un autre élément de ton interface
+        stage.setScene(new Scene(root));
+        stage.setTitle("Accueil - Application Étudiants");
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+
 }
