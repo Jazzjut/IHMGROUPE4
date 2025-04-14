@@ -122,9 +122,7 @@ public class EtudiantController implements Initializable {
         setFormulaireActif(false); // désactive le formulaire au lancement
         ajouterBoutonModifier();
         
-        //Charger page
-        totalEtudiants = etudiantDAO.getNombreTotalEtudiants();
-        chargerPage(1);
+         rafraichirTable();
 
     }
 
