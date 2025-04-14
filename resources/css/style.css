@@ -7,3 +7,49 @@
     -fx-border-radius: 5;
     -fx-padding: 6 12;
 }
+#btnSupprimer {
+    -fx-background-color: #e74c3c;
+}
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #ecf0f1;
+}
+
+.table-row-cell:filled:selected {
+    -fx-background-color: #d0e6f7;
+}
+#annulerButton {
+    -fx-background-color: #bdc3c7;
+    -fx-text-fill: #2c3e50;
+}
+.combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dcdcdc;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+.label {
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: 600;
+}
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dcdcdc;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 6 10;
+}
+.date-picker {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dcdcdc;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+#btnSupprimer {
+    -fx-background-color: #e74c3c;
+}
