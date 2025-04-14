@@ -29,7 +29,7 @@
                <items>
                   <MenuItem mnemonicParsing="false" text="Accueil" />
                   <MenuItem mnemonicParsing="false" text="Besoin d'aide" />
-                  <MenuItem mnemonicParsing="false" text="Quitter" />
+                  <MenuItem fx:id="menuquitter" mnemonicParsing="false" onAction="#handleQuitterApplication" text="Quitter" />
                </items>
             </Menu>
          </menus>
@@ -55,7 +55,7 @@
                         <TableColumn fx:id="promotionTC" minWidth="0.0" prefWidth="102.6666259765625" text="Promotion" />
                         <TableColumn fx:id="modifierTC" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="107.3333740234375" text="Modifier">
                            <graphic>
-                              <ImageView fitHeight="31.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@images/crayon.png" />
                                  </image>
