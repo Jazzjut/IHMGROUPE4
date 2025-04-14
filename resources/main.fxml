@@ -148,7 +148,7 @@
                               <Label fx:id="dateErrorLabel" layoutX="71.0" layoutY="284.0" prefHeight="17.0" prefWidth="296.0" />
                               <Label fx:id="parcoursErrorLabel" layoutX="71.0" layoutY="358.0" prefHeight="17.0" prefWidth="293.0" />
                               <Label fx:id="promotionErrorLabel" layoutX="71.0" layoutY="437.0" prefHeight="17.0" prefWidth="283.0" />
-                              <Text layoutX="170.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FORMULAIRE" wrappingWidth="207.0169677734375">
+                              <Text layoutX="151.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FORMULAIRE" wrappingWidth="207.0169677734375">
                                  <font>
                                     <Font size="30.0" />
                                  </font>
