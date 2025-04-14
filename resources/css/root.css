@@ -1,0 +1,5 @@
+.root {
+    -fx-background-color: #ffffff; /* fond blanc ou crème */
+    -fx-font-family: "Segoe UI", "Helvetica", sans-serif;
+    -fx-font-size: 13px;
+}

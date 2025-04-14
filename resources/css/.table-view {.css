@@ -1,0 +1,13 @@
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #ecf0f1;
+}
+
+.table-row-cell:filled:selected {
+    -fx-background-color: #d0e6f7;
+}
