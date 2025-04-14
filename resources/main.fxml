@@ -23,7 +23,7 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
          <menus>
-            <Menu fx:id="menuRetourAccueil" mnemonicParsing="false" onAction="#handleRetourAccueil" text="Accueil">
+            <Menu fx:id="menuRetourAccueil" mnemonicParsing="false" onAction="#handleRetourAccuei" text="Accueil">
                <items>
                   <MenuItem mnemonicParsing="false" text="About" />
                </items>
