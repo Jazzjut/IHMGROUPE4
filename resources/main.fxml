@@ -23,19 +23,11 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
          <menus>
-            <Menu fx:id="menuRetourAccueil" mnemonicParsing="false" onAction="#handleRetourAccuei" text="Accueil">
+            <Menu fx:id="menuRetourAccueil" mnemonicParsing="false" onAction="#handleRetourAccueil" text="Menu">
                <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Besoin d'aide">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Quitter">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Accueil" />
+                  <MenuItem mnemonicParsing="false" text="Besoin d'aide" />
+                  <MenuItem mnemonicParsing="false" text="Quitter" />
                </items>
             </Menu>
          </menus>
