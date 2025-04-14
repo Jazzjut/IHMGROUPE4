@@ -53,24 +53,44 @@
                         <TableColumn fx:id="ddnTC" prefWidth="145.33331298828125" text="Date de naissance" />
                         <TableColumn fx:id="parcoursTC" prefWidth="106.0" text="Parcours" />
                         <TableColumn fx:id="promotionTC" minWidth="0.0" prefWidth="102.6666259765625" text="Promotion" />
-                        <TableColumn fx:id="modifierTC" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="107.3333740234375" text="Modifier" />
+                        <TableColumn fx:id="modifierTC" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="107.3333740234375" text="Modifier">
+                           <graphic>
+                              <ImageView fitHeight="31.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/crayon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></TableColumn>
                      </columns>
                   </TableView>
-                  <Button fx:id="btnAjouter" layoutX="433.0" layoutY="56.0" minWidth="37.0" mnemonicParsing="false" onAction="#handleAjouter" prefHeight="35.0" prefWidth="200.0" text="Ajouter un étudiant">
+                  <Button fx:id="btnAjouter" layoutX="433.0" layoutY="56.0" minWidth="37.0" mnemonicParsing="false" onAction="#handleAjouter" prefHeight="39.0" prefWidth="251.0" text="Ajouter un étudiant">
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/ajout.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Button fx:id="btnSupprimer" layoutX="147.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleSupprimer" prefHeight="35.0" prefWidth="206.0" text="Supprimer un étudiant">
+                  <Button fx:id="btnSupprimer" layoutX="96.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleSupprimer" prefHeight="39.0" prefWidth="257.0" text="Supprimer un étudiant">
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <graphic>
+                        <ImageView fitHeight="93.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/poubelle.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Label layoutX="457.0" layoutY="122.0" text="Search" />
-                  <TextField fx:id="filtreNomField" layoutX="501.0" layoutY="118.0" prefHeight="14.0" prefWidth="152.0" promptText="Filtrer par nom/prénom" />
-                  <ComboBox fx:id="filtreParcoursCombo" layoutX="8.0" layoutY="118.0" prefHeight="26.0" prefWidth="160.0" promptText="Filtrer par parcours" />
-                  <ComboBox fx:id="filtrePromotionCombo" layoutX="176.0" layoutY="118.0" prefHeight="25.0" prefWidth="157.0" promptText="Filtrer par promotion" />
-                  <DatePicker fx:id="filtreDatePicker" layoutX="341.0" layoutY="118.0" prefHeight="25.0" prefWidth="107.0" />
+                  <TextField fx:id="filtreNomField" layoutX="457.0" layoutY="118.0" prefHeight="14.0" prefWidth="152.0" promptText="Filtrer par nom/prénom" />
+                  <ComboBox fx:id="filtreParcoursCombo" layoutX="8.0" layoutY="118.0" prefHeight="28.0" prefWidth="154.0" promptText="Filtrer par parcours" />
+                  <ComboBox fx:id="filtrePromotionCombo" layoutX="171.0" layoutY="118.0" prefHeight="25.0" prefWidth="157.0" promptText="Filtrer par promotion" />
+                  <DatePicker fx:id="filtreDatePicker" layoutX="334.0" layoutY="117.0" prefHeight="25.0" prefWidth="107.0" />
                   <Label fx:id="messageLabel1" layoutX="442.0" layoutY="154.0" />
                   <Button fx:id="btnSuivant" layoutX="466.0" layoutY="507.0" mnemonicParsing="false" onAction="#handleSuivant" prefHeight="35.0" prefWidth="85.0" text="Suivant">
                      <font>
@@ -94,7 +114,14 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="btnResetFiltre" layoutX="665.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleResetFiltre" prefHeight="26.0" prefWidth="77.0" text="Refresh" />
+                  <Button fx:id="btnResetFiltre" layoutX="630.0" layoutY="115.0" mnemonicParsing="false" onAction="#handleResetFiltre" prefHeight="33.0" prefWidth="109.0" text="Refresh">
+                     <graphic>
+                        <ImageView fitHeight="21.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/refresh.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="766.0" prefWidth="387.0">
