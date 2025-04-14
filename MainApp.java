@@ -7,7 +7,7 @@ import java.net.URL;
 import java.sql.Connection;
 
 public class MainApp extends Application {
-    private Db db = new Db();
+    private Db db = new Db();   
 
     @Override
     public void start(Stage stage) throws Exception {
