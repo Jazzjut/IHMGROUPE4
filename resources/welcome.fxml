@@ -22,9 +22,11 @@
    <top>
       <MenuBar prefHeight="26.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
          <menus>
-            <Menu mnemonicParsing="false" text="Quitter l'application">
+            <Menu mnemonicParsing="false" text="Menu">
                <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem fx:id="accueilwelc" mnemonicParsing="false" onAction="#handleAccueil" text="Accueil" />
+                  <MenuItem fx:id="aidewelc" mnemonicParsing="false" onAction="#handleAide" text="Besoin d'aide" />
+                  <MenuItem fx:id="quitterwelc" mnemonicParsing="false" onAction="#handleQuitter" text="Quitter" />
                </items>
             </Menu>
          </menus>
