@@ -6,39 +6,50 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.sql.Connection;
 
+/**
+ * Classe principale de l'application JavaFX.
+ * Initialise l'interface graphique et établit la connexion à la base de données.
+ * 
+ * @author Jacinthe, Iman, Kenza
+ * @version 26/03/2025
+ */
+
 public class MainApp extends Application {
-    private Db db = new Db();   
+    private Db db = new Db();   // Accès à la base de données SQLite
 
     @Override
     public void start(Stage stage) throws Exception {
+        // Chargement du fichier FXML de la page d'accueil
         URL fxmlurl = (getClass().getResource("/resources/welcome.fxml"));
-            if (fxmlurl == null) {
-            System.out.println("ERREUR : fichier introuvable fxml");
-            return;
-            }
+        if (fxmlurl == null) {
+        return;
+        // Si le fichier FXML est introuvable, arrêt de l'application
+        }
+        
         Parent root = FXMLLoader.load(fxmlurl);
         Scene scene = new Scene(root);
-        // ✅ Ajout du fichier CSS (style.css dans resources/css/)
+        
+        // Chargement du fichier CSS de style
         URL cssURL = getClass().getResource("/css/style.css");
         if (cssURL != null) {
             scene.getStylesheets().add(cssURL.toExternalForm());
-            System.out.println("✅ CSS appliqué : " + cssURL);
-        } else {
-            System.out.println("❌ CSS non trouvé !");
+            //css appliqué
         }
+        
+        // Configuration de la fenêtre principale
         stage.setTitle("Bienvenue - Application de Gestion des Étudiants");
         stage.setScene(scene);
         stage.show();
         
+        // Test de connexion à la base (facultatif en production)
         Connection conn = db.getConnection();
-        if (conn != null) {
-            System.out.println("Connexion réussie !");
-        } else {
-            System.out.println("ERREUR : Connexion à la base de données échouée.");
-        }
-
     }
 
+    /**
+     * Point d'entrée principal de l'application JavaFX.
+     *
+     * @param args Arguments de la ligne de commande.
+     */
     public static void main(String[] args) {
         launch(args);
     }

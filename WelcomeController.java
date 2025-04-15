@@ -25,5 +25,21 @@ public class WelcomeController {
             e.printStackTrace();
         }
     }
+    @FXML
+private void handleAccueil(ActionEvent event) {
+    // Rester sur la page actuelle : aucune action nécessaire
+    System.out.println("Déjà sur la page d'accueil.");
+}
+
+@FXML
+private void handleAide(ActionEvent event) {
+    AideUtils.afficherAide(); // méthode existante dans ta classe utilitaire
+}
+
+@FXML
+private void handleQuitter(ActionEvent event) {
+    System.exit(0);
+}
+
 }
 
