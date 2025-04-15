@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleBooleanProperty;
  * Classe représentant un étudiant avec ses informations personnelles : identifiant, 
  * nom, prénom, date de naissance, parcours, promotion, et état de sélection.
  * 
- * @author Iman
+ * @author Iman/Jacinthe
  * @version 26/03/2025
  */
 public class Etudiant {
