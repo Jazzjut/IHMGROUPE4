@@ -516,24 +516,6 @@ public void handleQuitterApplication(ActionEvent event) {
 }
 @FXML
 public void handleAide(ActionEvent event) {
-    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    alert.setTitle("Centre d’aide");
-    alert.setHeaderText("Questions fréquentes");
-
-    String contenu =
-        "❓ Comment ajouter un étudiant ?\n" +
-        "➡️ Cliquez sur 'Ajouter', remplissez le formulaire, puis cliquez sur 'Enregistrer'.\n\n" +
-        "❓ Comment supprimer plusieurs étudiants ?\n" +
-        "➡️ Cochez les étudiants, puis cliquez sur 'Supprimer'.\n\n" +
-        "❓ Comment modifier un étudiant ?\n" +
-        "➡️ Cliquez sur le bouton 'Modifier' à droite d’un étudiant.\n\n" +
-        "❓ Comment réinitialiser les filtres ?\n" +
-        "➡️ Cliquez sur le bouton 'Réinitialiser les filtres'.\n";
-
-    alert.setContentText(contenu);
-    alert.setResizable(true);
-    alert.getDialogPane().setPrefWidth(450);
-
-    alert.showAndWait();
+     AideUtils.afficherAide();
 }
 }

@@ -22,11 +22,6 @@
    <top>
       <MenuBar prefHeight="26.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
          <menus>
-            <Menu mnemonicParsing="false" text="Besoin d'aide">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Close" />
-               </items>
-            </Menu>
             <Menu mnemonicParsing="false" text="Quitter l'application">
                <items>
                   <MenuItem mnemonicParsing="false" text="About" />

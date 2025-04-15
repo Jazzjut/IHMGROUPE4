@@ -25,10 +25,10 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
          <menus>
-            <Menu fx:id="menuRetourAccueil" mnemonicParsing="false" onAction="#handleRetourAccueil" text="Menu">
+            <Menu fx:id="menuRetourAccueil" mnemonicParsing="false" text="Menu">
                <items>
                   <MenuItem mnemonicParsing="false" text="Accueil" />
-                  <MenuItem fx:id="aide" mnemonicParsing="false" onAction="#handleAide" text="Besoin d'aide" />
+                  <MenuItem fx:id="menuIdemAide" mnemonicParsing="false" onAction="#handleAide" text="Besoin d'aide" />
                   <MenuItem fx:id="menuquitter" mnemonicParsing="false" onAction="#handleQuitterApplication" text="Quitter" />
                </items>
             </Menu>
