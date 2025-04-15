@@ -27,12 +27,9 @@
          <menus>
             <Menu mnemonicParsing="false" text="Menu">
                <items>
-
-                  <MenuItem mnemonicParsing="false" text="Accueil" />
                   <MenuItem fx:id="menuIdemAide" mnemonicParsing="false" onAction="#handleAide" text="Besoin d'aide" />
 
                   <MenuItem fx:id="menuRetourAccueil" mnemonicParsing="false" onAction="#handleRetourAccueil" text="Accueil" />
-                  <MenuItem fx:id="aide" mnemonicParsing="false" onAction="#handleAide" text="Besoin d'aide" />
 
                   <MenuItem fx:id="menuquitter" mnemonicParsing="false" onAction="#handleQuitterApplication" text="Quitter" />
                </items>
@@ -96,7 +93,7 @@
                   <ComboBox fx:id="filtreParcoursCombo" layoutX="1.0" layoutY="118.0" prefHeight="40.0" prefWidth="171.0" promptText="Filtrer par parcours" />
                   <ComboBox fx:id="filtrePromotionCombo" layoutX="179.0" layoutY="118.0" prefHeight="40.0" prefWidth="184.0" promptText="Filtrer par promotion" />
                   <DatePicker fx:id="filtreDatePicker" layoutX="370.0" layoutY="113.0" prefHeight="39.0" prefWidth="107.0" />
-                  <Label fx:id="messageLabel1" layoutX="442.0" layoutY="154.0" />
+                  <Label fx:id="messageLabel1" layoutX="120.0" layoutY="100.0" prefHeight="18.0" prefWidth="198.0" />
                   <Button fx:id="btnSuivant" layoutX="488.0" layoutY="507.0" mnemonicParsing="false" onAction="#handleSuivant" prefHeight="35.0" prefWidth="85.0" text="Suivant">
                      <font>
                         <Font size="18.0" />
@@ -176,12 +173,12 @@
                                     <Font size="18.0" />
                                  </font>
                               </Button>
-                              <Label fx:id="messageLabel" layoutX="114.0" layoutY="607.0" prefHeight="17.0" prefWidth="309.0" />
+                              <Label fx:id="messageLabel" layoutX="36.0" layoutY="564.0" prefHeight="17.0" prefWidth="309.0" />
                               <Label fx:id="nomErrorLabel" layoutX="71.0" layoutY="124.0" prefHeight="17.0" prefWidth="275.0" textFill="#e12424" />
                               <Label fx:id="prenomErrorLabel" layoutX="71.0" layoutY="204.0" prefHeight="17.0" prefWidth="294.0" />
-                              <Label fx:id="dateErrorLabel" layoutX="71.0" layoutY="284.0" prefHeight="17.0" prefWidth="296.0" />
-                              <Label fx:id="parcoursErrorLabel" layoutX="71.0" layoutY="358.0" prefHeight="17.0" prefWidth="293.0" />
-                              <Label fx:id="promotionErrorLabel" layoutX="71.0" layoutY="437.0" prefHeight="17.0" prefWidth="283.0" />
+                              <Label fx:id="dateErrorLabel" layoutX="71.0" layoutY="297.0" prefHeight="17.0" prefWidth="296.0" />
+                              <Label fx:id="parcoursErrorLabel" layoutX="71.0" layoutY="372.0" prefHeight="17.0" prefWidth="293.0" />
+                              <Label fx:id="promotionErrorLabel" layoutX="71.0" layoutY="452.0" prefHeight="17.0" prefWidth="283.0" />
                               <Text layoutX="150.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FORMULAIRE" wrappingWidth="207.0169677734375">
                                  <font>
                                     <Font size="30.0" />
