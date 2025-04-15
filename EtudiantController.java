@@ -617,6 +617,18 @@ public class EtudiantController implements Initializable {
     private void effacerMessages() {
         messageLabel.setVisible(false);
         messageLabel1.setVisible(false);
+        
+        nomErrorLabel.setVisible(false);
+        prenomErrorLabel.setVisible(false);
+        dateErrorLabel.setVisible(false);
+        parcoursErrorLabel.setVisible(false);
+        promotionErrorLabel.setVisible(false);
+        
+        nomField.setStyle(null);
+        prenomField.setStyle(null);
+        dateNaissancePicker.setStyle(null);
+        parcoursCombo.setStyle(null);
+        promotionCombo.setStyle(null);
     }
 
     /**
@@ -654,60 +666,71 @@ public class EtudiantController implements Initializable {
      * @return true si tous les champs sont valides, false sinon.
      */
     private boolean validerChamps() {
-        boolean valide = true;
-        // Masquer tous les messages d’erreur
-        nomErrorLabel.setVisible(false);
-        prenomErrorLabel.setVisible(false);
-        dateErrorLabel.setVisible(false);
-        parcoursErrorLabel.setVisible(false);
-        promotionErrorLabel.setVisible(false);
+    boolean valide = true;
+
+    // Masquer tous les messages d’erreur
+    nomErrorLabel.setVisible(false);
+    prenomErrorLabel.setVisible(false);
+    dateErrorLabel.setVisible(false);
+    parcoursErrorLabel.setVisible(false);
+    promotionErrorLabel.setVisible(false);
+
+    // Récupération des valeurs
+    String nom = nomField.getText().trim();
+    String prenom = prenomField.getText().trim();
+    LocalDate dateNaissance = dateNaissancePicker.getValue();
+    Etudiant.Parcours parcours = parcoursCombo.getValue();
+    Etudiant.Promotion promotion = promotionCombo.getValue();
+
+    // Validation du nom
+    if (nom.isEmpty()) {
+        afficherErreur(nomErrorLabel, "Le nom est obligatoire.");
+        valide = false;
+    } else if (!nom.matches("[a-zA-ZÀ-ÿ\\s\\-']+")) {
+        afficherErreur(nomErrorLabel, "Le nom ne doit contenir que des lettres.");
+        valide = false;
+    }
+
+    // Validation du prénom
+    if (prenom.isEmpty()) {
+        afficherErreur(prenomErrorLabel, "Le prénom est obligatoire.");
+        valide = false;
+    } else if (!prenom.matches("[a-zA-ZÀ-ÿ\\s\\-']+")) {
+        afficherErreur(prenomErrorLabel, "Le prénom ne doit contenir que des lettres.");
+        valide = false;
+    }
+
+    // Validation de la date de naissance
+    if (dateNaissance == null) {
+        afficherErreur(dateErrorLabel, "La date de naissance est obligatoire.");
+        valide = false;
+    } else if (dateNaissance.isAfter(LocalDate.now())) {
+        afficherErreur(dateErrorLabel, "La date ne peut pas être dans le futur.");
+        valide = false;
+    } else if (LocalDate.now().getYear() - dateNaissance.getYear() < 16) {
+        afficherErreur(dateErrorLabel, "L'étudiant doit avoir au moins 16 ans.");
+        valide = false;
+    }
+
+    // Validation du parcours
+    if (parcours == null) {
+        afficherErreur(parcoursErrorLabel, "Le parcours est requis.");
+        valide = false;
+    }
+
+    // Validation de la promotion
+    if (promotion == null) {
+        afficherErreur(promotionErrorLabel, "La promotion est requise.");
+        valide = false;
+    }
+
+    return valide;
+    }
     
-        // Validation individuelle
-        String nom = nomField.getText().trim();
-        String prenom = prenomField.getText().trim();
-        LocalDate dateNaissance = dateNaissancePicker.getValue();
-        Etudiant.Parcours parcours = parcoursCombo.getValue();
-        Etudiant.Promotion promotion = promotionCombo.getValue();
-    
-        if (!nom.matches("[a-zA-ZÀ-ÿ\\s\\-']{2,}")) {
-            nomErrorLabel.setText("Le nom doit contenir uniquement des lettres.");
-            nomErrorLabel.setVisible(true);
-            valide = false;
-        }
-    
-        if (!prenom.matches("[a-zA-ZÀ-ÿ\\s\\-']{2,}")) {
-            prenomErrorLabel.setText("Le prénom doit contenir uniquement des lettres.");
-            prenomErrorLabel.setVisible(true);
-            valide = false;
-        }
-    
-        if (dateNaissance == null) {
-            dateErrorLabel.setText("La date de naissance est obligatoire.");
-            dateErrorLabel.setVisible(true);
-            valide = false;
-        } else if (dateNaissance.isAfter(LocalDate.now())) {
-            dateErrorLabel.setText("La date ne peut pas être dans le futur.");
-            dateErrorLabel.setVisible(true);
-            valide = false;
-        } else if (LocalDate.now().getYear() - dateNaissance.getYear() < 16) {
-            dateErrorLabel.setText("L'étudiant doit avoir au moins 16 ans.");
-            dateErrorLabel.setVisible(true);
-            valide = false;
-        }
-    
-        if (parcours == null) {
-            parcoursErrorLabel.setText("Le parcours est requis.");
-            parcoursErrorLabel.setVisible(true);
-            valide = false;
-        }
-    
-        if (promotion == null) {
-            promotionErrorLabel.setText("La promotion est requise.");
-            promotionErrorLabel.setVisible(true);
-            valide = false;
-        }
-    
-        return valide;
+    private void afficherErreur(Label label, String message) {
+    label.setText(message);
+    label.setStyle("-fx-text-fill: red;");
+    label.setVisible(true);
     }
     
     /**

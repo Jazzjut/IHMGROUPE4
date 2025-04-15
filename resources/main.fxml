@@ -23,14 +23,19 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="687.0" prefWidth="1263.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EtudiantController">
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar prefHeight="30.0" prefWidth="1279.0" BorderPane.alignment="CENTER">
          <menus>
             <Menu mnemonicParsing="false" text="Menu">
                <items>
-   <MenuItem fx:id="menuRetourAccueil" mnemonicParsing="false" onAction="#handleRetourAccueil" text="Accueil" />
-   <MenuItem fx:id="aide" mnemonicParsing="false" onAction="#handleAide" text="Besoin d'aide" />
-   <MenuItem fx:id="menuquitter" mnemonicParsing="false" onAction="#handleQuitterApplication" text="Quitter" />
-</items>
+
+                  <MenuItem mnemonicParsing="false" text="Accueil" />
+                  <MenuItem fx:id="menuIdemAide" mnemonicParsing="false" onAction="#handleAide" text="Besoin d'aide" />
+
+                  <MenuItem fx:id="menuRetourAccueil" mnemonicParsing="false" onAction="#handleRetourAccueil" text="Accueil" />
+                  <MenuItem fx:id="aide" mnemonicParsing="false" onAction="#handleAide" text="Besoin d'aide" />
+
+                  <MenuItem fx:id="menuquitter" mnemonicParsing="false" onAction="#handleQuitterApplication" text="Quitter" />
+               </items>
             </Menu>
          </menus>
       </MenuBar>
@@ -38,7 +43,7 @@
    <center>
       <SplitPane dividerPositions="0.5967741935483871" prefHeight="1019.0" prefWidth="1869.0" BorderPane.alignment="CENTER">
          <items>
-            <AnchorPane prefHeight="766.0" prefWidth="530.0">
+            <AnchorPane prefHeight="658.0" prefWidth="770.0">
                <children>
                   <TableView fx:id="tableView" layoutX="2.0" layoutY="161.33333333333334" prefHeight="328.0" prefWidth="625.0" AnchorPane.bottomAnchor="170.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="161.0">
                      <columns>
@@ -87,10 +92,10 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TextField fx:id="filtreNomField" layoutX="457.0" layoutY="118.0" prefHeight="14.0" prefWidth="152.0" promptText="Filtrer par nom/prénom" />
-                  <ComboBox fx:id="filtreParcoursCombo" layoutX="8.0" layoutY="118.0" prefHeight="28.0" prefWidth="154.0" promptText="Filtrer par parcours" />
-                  <ComboBox fx:id="filtrePromotionCombo" layoutX="171.0" layoutY="118.0" prefHeight="25.0" prefWidth="157.0" promptText="Filtrer par promotion" />
-                  <DatePicker fx:id="filtreDatePicker" layoutX="334.0" layoutY="117.0" prefHeight="25.0" prefWidth="107.0" />
+                  <TextField fx:id="filtreNomField" layoutX="483.0" layoutY="113.0" prefHeight="41.0" prefWidth="152.0" promptText="Filtrer par nom/prénom" />
+                  <ComboBox fx:id="filtreParcoursCombo" layoutX="1.0" layoutY="118.0" prefHeight="40.0" prefWidth="171.0" promptText="Filtrer par parcours" />
+                  <ComboBox fx:id="filtrePromotionCombo" layoutX="179.0" layoutY="118.0" prefHeight="40.0" prefWidth="184.0" promptText="Filtrer par promotion" />
+                  <DatePicker fx:id="filtreDatePicker" layoutX="370.0" layoutY="113.0" prefHeight="39.0" prefWidth="107.0" />
                   <Label fx:id="messageLabel1" layoutX="442.0" layoutY="154.0" />
                   <Button fx:id="btnSuivant" layoutX="488.0" layoutY="507.0" mnemonicParsing="false" onAction="#handleSuivant" prefHeight="35.0" prefWidth="85.0" text="Suivant">
                      <font>
@@ -114,21 +119,22 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="btnResetFiltre" layoutX="630.0" layoutY="115.0" mnemonicParsing="false" onAction="#handleResetFiltre" prefHeight="33.0" prefWidth="109.0" text="Refresh">
+                  <Button fx:id="btnResetFiltre" layoutX="645.0" layoutY="116.0" mnemonicParsing="false" onAction="#handleResetFiltre" prefHeight="33.0" prefWidth="109.0" text="Refresh">
                      <graphic>
                         <ImageView fitHeight="21.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@images/refresh.png" />
                            </image>
                         </ImageView>
-                     </graphic></Button>
+                     </graphic>
+                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="766.0" prefWidth="387.0">
                <children>
-                  <BorderPane prefHeight="658.0" prefWidth="507.0">
+                  <BorderPane prefHeight="658.0" prefWidth="500.0">
                      <center>
-                        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                        <Pane prefHeight="658.0" prefWidth="471.0" BorderPane.alignment="CENTER">
                            <children>
                               <Label layoutX="59.0" layoutY="70.0" prefHeight="26.0" prefWidth="69.0" text="Nom *" textFill="#252323">
                                  <font>
