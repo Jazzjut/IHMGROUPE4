@@ -2,9 +2,8 @@
  * Classe responsable de la gestion de la connexion à la base de données SQLite.
  * Elle ouvre une connexion unique à la base locale "etudiants.db" et la réutilise.
  * 
- * Version : 1.0
- * Date : 2025-03-25
- * Auteur : Jacinthe
+ * @version 25/03/2025
+ * @author Jacinthe
  * 
  */
 import java.sql.Connection;
