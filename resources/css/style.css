@@ -20,7 +20,7 @@
 }
 
 /* --- BOUTON PRINCIPAL : AJOUTER --- */
-#btnAjouter {
+#btnAjouter, #btnGererEtudiants {
     -fx-background-color: #5c5048; /* Brun doux */
     -fx-text-fill: white;
    
