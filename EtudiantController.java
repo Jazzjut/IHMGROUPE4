@@ -41,6 +41,7 @@ public class EtudiantController implements Initializable {
     @FXML private Button enregistrerButton, btnAjouter, annulerButton, btnUndo, btnSupprimer;;
     @FXML private Label messageLabel;
     @FXML private Label messageLabel1;
+    @FXML private Label messageLabel2;
     @FXML private Label nomErrorLabel;
     @FXML private Label prenomErrorLabel;
     @FXML private Label dateErrorLabel;
@@ -383,7 +384,7 @@ public class EtudiantController implements Initializable {
     
         // Si aucun étudiant sélectionné, afficher un message d'avertissement
         if (selectionnes.isEmpty()) {
-            afficherMessageTemporaire(messageLabel, "Aucun étudiant sélectionné.", "gray");
+            afficherMessageTemporaire(messageLabel1, "Aucun étudiant sélectionné.", "gray");
             return;
         }
     
@@ -393,7 +394,7 @@ public class EtudiantController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText("Êtes-vous sûr de vouloir supprimer les étudiants sélectionnés ?");
         if (alert.showAndWait().get() != ButtonType.OK) {
-            afficherMessageTemporaire(messageLabel, "Suppression annulée.", "gray");
+            afficherMessageTemporaire(messageLabel2, "Suppression annulée.", "gray");
             return;
         }
     
@@ -567,11 +568,11 @@ public class EtudiantController implements Initializable {
             derniereAction.undo();                             // Exécute l'annulation
             rafraichirTable();                                // met à jour la table
            
-            afficherMessageTemporaire(messageLabel, "Action annulée !", "orange");
+            afficherMessageTemporaire(messageLabel2, "Action annulée !", "orange");
             
         } else {
             
-             afficherMessageTemporaire(messageLabel, "Aucune action à annuler.", "gray");
+             afficherMessageTemporaire(messageLabel2, "Aucune action à annuler.", "gray");
         }
     }
     
@@ -608,7 +609,7 @@ public class EtudiantController implements Initializable {
         //Recharge après réinitialisation
         updateFilter();
     
-        afficherMessageTemporaire(messageLabel, "?Filtres réinitialisés.", "blue");
+        afficherMessageTemporaire(messageLabel1, "Filtres réinitialisés.", "blue");
     }
     
     /**
@@ -617,6 +618,7 @@ public class EtudiantController implements Initializable {
     private void effacerMessages() {
         messageLabel.setVisible(false);
         messageLabel1.setVisible(false);
+        messageLabel2.setVisible(false);
         
         nomErrorLabel.setVisible(false);
         prenomErrorLabel.setVisible(false);
