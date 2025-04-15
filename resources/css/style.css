@@ -1,55 +1,140 @@
+/* --- ROOT + GENERAL --- */
+.root,
+.border-pane,
+.split-pane,
+.split-pane > *.split-pane-divider,
+.anchor-pane {
+    -fx-background-color: #ffffff; /* Beige très clair */
+    -fx-font-family: "Segoe UI", sans-serif;
+}
 
+/* --- BOUTONS GÉNÉRAUX --- */
 .button {
-    -fx-background-color: #3c8dbc;
-    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
-    -fx-padding: 6 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.03), 2, 0, 0, 1);
 }
+
+/* --- BOUTON PRINCIPAL : AJOUTER --- */
+#btnAjouter {
+    -fx-background-color: #5c5048; /* Brun doux */
+    -fx-text-fill: white;
+   
+}
+#btnAjouter:hover {
+    -fx-background-color: #3f3732;
+}
+
+/* --- BOUTON SUPPRIMER --- */
 #btnSupprimer {
-    -fx-background-color: #e74c3c;
+    -fx-background-color: #8b817b; /* Taupe élégant */
+    -fx-text-fill: white;
+   
 }
+#btnSupprimer:hover {
+    -fx-background-color: #6f6762;
+}
+
+/* --- BOUTON ANNULER --- */
+#annulerButton {
+    -fx-background-color: #d9cfc6;
+    -fx-text-fill: #2d2d2d;
+}
+#annulerButton:hover {
+    -fx-background-color: #c5bab2;
+}
+
+/* --- BOUTON SOUMETTRE --- */
+#enregistrerButton {
+    -fx-background-color: #5c5048;
+    -fx-text-fill: white;
+}
+#enregistrerButton:hover {
+    -fx-background-color: #403833;
+}
+
+/* --- BOUTONS SECONDAIRES --- */
+#btnUndo,
+#btnResetFiltre,
+#btnRefresh {
+    -fx-background-color: #e6dfda;
+    -fx-text-fill: #2d2d2d;
+}
+#btnUndo:hover,
+#btnResetFiltre:hover,
+#btnRefresh:hover {
+    -fx-background-color: #d5cdc7;
+}
+
+/* --- PAGINATION --- */
+#btnSuivant,
+#btnPrecedent {
+    -fx-background-color: #c2b7aa;
+    -fx-text-fill: #2d2d2d;
+}
+#btnSuivant:hover,
+#btnPrecedent:hover {
+    -fx-background-color: #a3988b;
+}
+
+/* --- TABLEVIEW --- */
 .table-view {
     -fx-background-color: white;
-    -fx-border-color: #cccccc;
-    -fx-border-radius: 5;
+    -fx-border-color: #faf6f6;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
 }
-
 .table-view .column-header-background {
-    -fx-background-color: #ecf0f1;
+    -fx-background-color: #f2edea;
+}
+.table-row-cell:filled:selected {
+    -fx-background-color: #e6e0dc;
 }
 
-.table-row-cell:filled:selected {
-    -fx-background-color: #d0e6f7;
-}
-#annulerButton {
-    -fx-background-color: #bdc3c7;
-    -fx-text-fill: #2c3e50;
-}
-.combo-box {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #dcdcdc;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-}
-.label {
-    -fx-text-fill: #2c3e50;
-    -fx-font-weight: 600;
-}
-.text-field {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #dcdcdc;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-    -fx-padding: 6 10;
-}
+/* --- CHAMPS DE FORMULAIRE --- */
+.text-field,
+.combo-box,
 .date-picker {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #dcdcdc;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
+    -fx-background-color: #fffaf6;
+    -fx-text-fill: #2d2d2d;
+    -fx-border-color: #d5c9bd;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 6 10;
+    -fx-font-weight: bold;
 }
-#btnSupprimer {
-    -fx-background-color: #e74c3c;
+.text-field:focused,
+.combo-box:focused,
+.date-picker:focused {
+    -fx-border-color: #5a4e48;
+}
+
+/* --- LABELS --- */
+.label {
+    -fx-text-fill: #2d2d2d;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* --- LABELS D’ERREUR --- */
+.label.error {
+    -fx-text-fill: #b94f4f;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* --- MENU --- */
+.menu-bar {
+    -fx-background-color: #e9dbd1;
+    -fx-border-color: #d5d0d0;
+}
+.menu-item {
+    -fx-text-fill: #2d2d2d;
+    -fx-font-weight: bold;
+
+
 }
