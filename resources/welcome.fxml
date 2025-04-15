@@ -14,7 +14,6 @@
       <Pane prefHeight="687.0" prefWidth="1263.0" BorderPane.alignment="CENTER">
          <children>
             <Text layoutX="540.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenue dans l'application de gestion des étudiants du Master IDLS" textAlignment="CENTER" wrappingWidth="200.23876953125" />
-            <Text layoutX="273.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="74.63873291015625" />
             <Button fx:id="btnGererEtudiants" layoutX="566.0" layoutY="319.0" mnemonicParsing="false" onAction="#handleGererEtudiants" prefHeight="32.0" prefWidth="149.0" text="Gérer les étudiants" />
          </children>
       </Pane>
