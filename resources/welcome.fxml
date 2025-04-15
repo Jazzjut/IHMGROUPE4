@@ -7,19 +7,24 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WelcomeController">
    <center>
-      <Pane prefHeight="687.0" prefWidth="1263.0" BorderPane.alignment="CENTER">
+      <Pane prefHeight="687.0" prefWidth="1263.0" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
          <children>
-            <Text layoutX="540.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenue dans l'application de gestion des étudiants du Master IDLS" textAlignment="CENTER" wrappingWidth="200.23876953125" />
-            <Button fx:id="btnGererEtudiants" layoutX="566.0" layoutY="319.0" mnemonicParsing="false" onAction="#handleGererEtudiants" prefHeight="32.0" prefWidth="149.0" text="Gérer les étudiants" />
+            <Text layoutX="369.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenue dans l'application de gestion des étudiants du Master IDLS" textAlignment="CENTER" wrappingWidth="542.2388000488281">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font></Text>
+            <Button fx:id="btnGererEtudiants" layoutX="547.0" layoutY="292.0" mnemonicParsing="false" onAction="#handleGererEtudiants" prefHeight="42.0" prefWidth="186.0" stylesheets="@css/style.css" text="Gérer les étudiants" />
+            <Text layoutX="441.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cette application vous permet de gérer simplement les étudiants du Master : ajoutez, modifiez, filtrez ou consultez leurs informations en quelques clics." wrappingWidth="428.4577941894531" />
          </children>
       </Pane>
    </center>
    <top>
-      <MenuBar prefHeight="26.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+      <MenuBar prefHeight="26.0" prefWidth="1280.0" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
          <menus>
             <Menu mnemonicParsing="false" text="Menu">
                <items>
